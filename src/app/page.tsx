@@ -3,7 +3,9 @@ import Image from 'next/image'
 export default function Home() {
   return (
     <>
-    <h1>asdasdadad</h1>
+    <h1>Crafting Memorable 
+User Experiences for 
+Business Success</h1>
     </>
   )
 }

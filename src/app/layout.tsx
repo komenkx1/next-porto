@@ -16,6 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <link href="https://fonts.cdnfonts.com/css/space-grotesk" rel="stylesheet"></link>
       <body className="bg-[#111827]">
         <div
           className="bg"
