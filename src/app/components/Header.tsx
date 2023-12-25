@@ -1,7 +1,7 @@
 "use client";
 import { EnvelopeIcon } from "@heroicons/react/16/solid";
 import { useMenuStore } from "../store/menu";
-import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+
 export default function Header() {
   const { menu: menu } = useMenuStore();
   return (

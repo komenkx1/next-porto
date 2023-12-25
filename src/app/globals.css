@@ -30,3 +30,21 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+}
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float {
+  animation: floating 2s ease-in-out infinite!important;
+  -webkit-animation: floating 2s ease-in-out infinite!important;
+}

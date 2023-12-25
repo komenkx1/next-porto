@@ -25,7 +25,6 @@ export default function RootLayout({
             backgroundImage: `url(/bg/bg-element.png)`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
-            height: "100%",  // Set height to 100
           }}
         >
           <Header />
