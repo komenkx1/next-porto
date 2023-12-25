@@ -7,7 +7,9 @@ type Menu = {
 
 type MenuStore = {
   menu: Menu[];
+  menuExpanded: boolean;
   setMenu: (menu: Menu[]) => void;
+  expandMenu: () => void;
 };
 
 const menu: Menu[] = [
@@ -35,5 +37,9 @@ const menu: Menu[] = [
 
 export const useMenuStore = create<MenuStore>((set) => ({
   menu: menu,
+  menuExpanded: false,
   setMenu: (newMenu: Menu[]) => set({ menu: newMenu }),
+  expandMenu: () => {
+    set((state) => ({ menuExpanded: !state.menuExpanded }));
+  },
 }));

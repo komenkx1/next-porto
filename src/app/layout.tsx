@@ -20,7 +20,7 @@ export default function RootLayout({
       <link href="https://fonts.cdnfonts.com/css/space-grotesk" rel="stylesheet"></link>
       <body className="bg-[#111827]">
         <div
-          className="bg px-20 mx-auto "
+          className="bg lg:px-20 px-10 mx-auto "
           style={{
             backgroundImage: `url(/bg/bg-element.png)`,
             backgroundSize: "cover",
