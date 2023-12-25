@@ -17,18 +17,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <link
-        href="https://fonts.cdnfonts.com/css/space-grotesk"
-        rel="stylesheet"
-      ></link>
-      <body className="bg-[#111827]">
-        <div
-          className="bg lg:px-20 px-10 mx-auto"
-          style={{
+      <body style={{
             backgroundImage: `url(/bg/bg-element.png)`,
             backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-          }}
+          }}>
+        <div
+          className="bg lg:px-28 px-10 mx-auto"
         >
           <Header />
           {children}
