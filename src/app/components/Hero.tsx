@@ -3,18 +3,19 @@ import { ArrowDownCircleIcon } from "@heroicons/react/16/solid";
 export default function Hero() {
   return (
     <>
-
-      <div className="hero px-28 py-24 text-center">
+      <div className="hero lg:px-28 lg:py-24 py-10 text-center">
         <h1
           className="text-gray-200
-        text-[64px]
+        lg:text-[64px]
+        text-[28px]
         font-medium
-        leading-[72px]
+        lg:leading-[72px]
         pb-6"
         >
           Crafting Memorable User Experiences for Business Success
         </h1>
-        <div className="text-center text-gray-300 text-xl font-normal font-['Space Grotesk'] leading-7 mb-10">
+        <div className="text-center text-gray-300 lg:text-xl font-normal font-['Space Grotesk'] lg:leading-7 leading-normal
+        text-base mb-10">
           I blend exquisite design with impeccable functionality for an
           exceptional <br />
           user experience, while keeping users captivated.
