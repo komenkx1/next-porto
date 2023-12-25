@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Header from "./components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +20,7 @@ export default function RootLayout({
       <link href="https://fonts.cdnfonts.com/css/space-grotesk" rel="stylesheet"></link>
       <body className="bg-[#111827]">
         <div
-          className="bg"
+          className="bg px-20 mx-auto "
           style={{
             backgroundImage: `url(/bg/bg-element.png)`,
             backgroundSize: "cover",
@@ -27,6 +28,7 @@ export default function RootLayout({
             height: "100%",  // Set height to 100
           }}
         >
+          <Header />
           {children}
         </div>
       </body>
