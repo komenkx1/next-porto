@@ -4,15 +4,12 @@ import { useMenuStore } from "../store/menu";
 
 export default function Hero() {
   const {
-    menu: menu,
-    expandMenu: expandMenu,
-    menuExpanded: expandedMenu,
     scrollTo: scrollTo,
   } = useMenuStore();
 
   return (
     <>
-      <div className="hero lg:px-28 lg:py-32 py-7 lg:mt-16 text-center">
+      <div id="home" className="section hero lg:px-28 lg:py-32 py-7 lg:mt-16 text-center">
         <h1
           data-aos="fade"
           className="text-gray-200

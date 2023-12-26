@@ -1,7 +1,7 @@
 export default function Word() {
   return (
     <>
-      <div id="resource" className="title w-full text-center lg:mb-10 md:mb-8 mb-5 mt-3">
+      <div id="resource" className="section title w-full text-center lg:mb-10 md:mb-8 mb-5 mt-3">
         <h3
          data-aos="fade-down"
           className="

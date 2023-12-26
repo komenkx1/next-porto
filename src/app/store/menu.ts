@@ -12,6 +12,7 @@ type MenuStore = {
   setMenu: (menu: Menu[]) => void;
   expandMenu: () => void;
   scrollTo: (link: string) => any;
+  setActiveMenu: (link: string) => void;
 };
 
 const menu: Menu[] = [
@@ -51,7 +52,6 @@ export const useMenuStore = create<MenuStore>((set) => ({
   },
   scrollTo: (link: string) => (event: any) => {
     event.preventDefault();
-
     set((state) => ({
       menu: state.menu.map((item) =>
         item.link === link
@@ -78,5 +78,14 @@ export const useMenuStore = create<MenuStore>((set) => ({
         behavior: "smooth",
       });
     }
+  },
+  setActiveMenu: (link: string) => {
+    set((state) => ({
+      menu: state.menu.map((item) =>
+        item.link === link
+          ? { ...item, isActive: true }
+          : { ...item, isActive: false }
+      ),
+    }));
   },
 }));

@@ -50,8 +50,8 @@ export default function Header() {
       id="header"
       className={`relative lg:fixed w-full top-0 z-50 transition-all ${
         scrolling
-          ? "lg:bg-clip-padding lg:backdrop-filter lg:backdrop-blur-lg lg:bg-opacity-10 lg:bg-gray-200"
-          : ""
+          ? "transition-all lg:bg-clip-padding lg:backdrop-filter lg:backdrop-blur-lg lg:bg-opacity-10 lg:bg-gray-200"
+          : "transition-all"
       }`}
     >
       <div className=" lg:px-28 px-10 mx-auto h-24 lg:justify-center justify-between items-center flex">
