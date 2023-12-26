@@ -1,7 +1,7 @@
 export default function Word() {
   return (
     <>
-      <div className="title w-full text-center mb-10">
+      <div className="title w-full text-center lg:mb-10 md:mb-8 mb-5">
         <h3
           className="
           text-gray-200
@@ -12,7 +12,7 @@ export default function Word() {
             leading-[48px]
             lg:mb-5
             md:mb-3
-            mb--2
+            mb-2
         "
         >
           Kind Words

@@ -9,6 +9,7 @@ import { useCategoryStore } from "../store/categories";
 import { useMemo } from "react";
 import PortoFolioCard from "./PortofolioCard";
 import HeaderSection from "./HeaderSection";
+import Button from "./Button";
 
 export default function Portofolio() {
   const { categories: categories } = useCategoryStore();
@@ -42,15 +43,10 @@ export default function Portofolio() {
           <PortoFolioCard />
           <PortoFolioCard />
           <PortoFolioCard />
-          <div className="button cursor-pointer lg:col-span-3 md:col-span-2 w-full flex justify-center lg:py-12 md:py-5">
-            <div className=" w-52 h-14 px-8 py-4 hover:bg-transparent transition-all bg-violet-600 rounded-xl border border-white justify-center items-center gap-2 inline-flex">
-              <div className="text-center text-slate-50 text-base font-medium font-['Space Grotesk'] leading-normal">
-                More This Way
-              </div>
-              <ArrowRightCircleIcon className="w-6 h-6 text-slate-50" />
-            </div>
-          </div>
         </div>
+          <div className="flex justify-center lg:py-12 md:py-5 pb-5">
+          <Button title="More This Way" />
+          </div>
       </div>
     </>
   );
