@@ -2,6 +2,7 @@ import Image from "next/image";
 import Hero from "./components/Hero";
 import Portofolio from "./components/Portofolio";
 import Word from "./components/Word";
+import Certificate from "./components/Certificate";
 
 export default function Home() {
   return (
@@ -9,7 +10,7 @@ export default function Home() {
       <Hero />
       <Portofolio />
       <Word />
-     
+      <Certificate />
     </>
   );
 }

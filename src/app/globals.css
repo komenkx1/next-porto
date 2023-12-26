@@ -51,3 +51,8 @@ html, body {
 }
 
 
+.slick-center {
+  transform: scale(1.2); /* Optional: Adjust the size of the center item */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15) ;
+  transition: transform 0.3s ease;
+}
