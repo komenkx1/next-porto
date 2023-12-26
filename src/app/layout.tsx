@@ -22,10 +22,10 @@ export default function RootLayout({
             backgroundImage: `url(/bg/bg-element.png)`,
             backgroundSize: "cover",
           }}>
+            <Header />
         <div
           className="bg lg:px-28 px-10 mx-auto"
         >
-          <Header />
           {children}
           <Footer/>
         </div>
