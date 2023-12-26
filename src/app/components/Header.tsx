@@ -30,8 +30,8 @@ export default function Header() {
       <div
         className={`menu lg:!flex lg:grow lg:shrink lg:basis-0 lg:h-24 justify-center items-center transition-all w-36 h-full top-0  z-50 p-4 lg:!relative lg:bg-transparent bg-purple-400 bg-clip-padding lg:backdrop-blur-none backdrop-filter backdrop-blur-md bg-opacity-10  ${
           expandedMenu
-            ? "absolute left-[0px]"
-            : "absolute lg:left-0 left-[-1000px]"
+            ? "fixed left-[0px]"
+            : "fixed lg:left-0 left-[-1000px]"
         }`}
       >
         {menu.map((item, index) => {

@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function ImageCertificate() {
   return (
     <>
-      <div className=" flex-col justify-start items-start gap-4 lg:inline-flex cursor-pointer group mx-2">
+      <div className=" flex-col justify-start items-start gap-4 lg:inline-flex cursor-pointer group mx-1">
         <div className="w-full lg:h-[300px]">
           <Image
             width={570}
