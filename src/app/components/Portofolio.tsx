@@ -44,7 +44,7 @@ export default function Portofolio() {
           <PortoFolioCard />
           <PortoFolioCard />
         </div>
-          <div className="flex justify-center lg:py-12 md:py-5 pb-5">
+          <div className="flex justify-center lg:py-8 md:py-6 pb-5">
           <Button title="More This Way" />
           </div>
       </div>

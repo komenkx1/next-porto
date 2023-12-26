@@ -1,7 +1,7 @@
 export default function Word() {
   return (
     <>
-      <div className="title w-full text-center lg:mb-10 md:mb-8 mb-5">
+      <div className="title w-full text-center lg:mb-10 md:mb-8 mb-5 mt-3">
         <h3
           className="
           text-gray-200
