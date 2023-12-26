@@ -1,12 +1,48 @@
+"use client";
 import Image from "next/image";
 import Button from "./Button";
+import { useEffect, useRef, useState } from "react";
 
 export default function About() {
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const contactImageRef = useRef(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e;
+      const rect = contactImageRef.current.getBoundingClientRect();
+
+      // Menemukan titik tengah elemen
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      // Menghitung perbedaan antara posisi kursor dan titik tengah
+      const diffX = clientX - (rect.left + centerX);
+      const diffY = clientY - (rect.top + centerY);
+
+      // Menyimpan posisi kursor
+      setCursorPosition({ x: diffX, y: diffY });
+    };
+
+    // Menambahkan event listener untuk mousemove
+    document.addEventListener("mousemove", handleMouseMove);
+
+    // Membersihkan event listener pada pembongkaran komponen
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
   return (
     <>
       <div className="lg:grid md:grid grid-cols-2 lg:my-10">
-        <div data-aos="fade-left" data-aos-delay="200" className="contatct flex justify-center items-center">
-          <div className="cursor-pointer group mx-2 p-14 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100">
+        <div
+          id="contactImage"
+          className="contatct flex justify-center items-center"
+        >
+          <div
+            ref={contactImageRef}
+            className="hover-effect cursor-pointer group mx-2 p-14 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100"
+          >
             <div className="image">
               <div
                 style={{
@@ -43,7 +79,7 @@ export default function About() {
             </div>
           </div>
         </div>
-        <div data-aos="fade-right" data-aos-delay="200" className="desc lg:text-start md:text-start text-center lg:my-0 md:my-0 my-7">
+        <div className="desc lg:text-start md:text-start text-center lg:my-0 md:my-0 my-7">
           <h3
             className="text-gray-200
             lg:text-[40px]
@@ -77,10 +113,26 @@ export default function About() {
             taught me valuable skills in making critical decisions under`}
           </span>
           <div className="lg:my-7 md:my-5 my-3">
-          <Button title="Contact me" />
+            <Button title="Contact me" />
           </div>
         </div>
       </div>
+      <style jsx>{`
+        /* ... (kode lainnya) */
+
+        .hover-effect {
+          transition: transform 0.3s;
+        }
+
+        .hover-effect:hover {
+          transform: perspective(1000px) rotateX(${cursorPosition.y / 10}deg) 
+            rotateY(${cursorPosition.x / 10}deg);
+          backface-visibility: hidden;
+        }
+        .contatct {
+          transform-style: preserve-3d;
+        }
+      `}</style>
     </>
   );
 }

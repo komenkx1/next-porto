@@ -59,7 +59,7 @@ export default function Word() {
         <div className="row-span-2 second flex flex-1" data-aos="fade-right" data-aos-delay="600">
           <div className="pl-10 pr-[23px] py-10 my-5 bg-gray-800 bg-opacity-40 rounded-xl border border-gray-500 backdrop-blur-[20px] flex-col justify-start items-start gap-2 inline-flex">
             <div className="flex-col justify-start items-start gap-9 flex">
-              <div className=" text-gray-300 lg:text-xl md:text-lg text-normal font-normal font-['Space Grotesk'] leading-7">
+              <div className=" h-[300px] text-gray-300 lg:text-xl md:text-lg text-normal font-normal font-['Space Grotesk'] leading-7">
                 His quality of work is excellent! I prefer Mehedi in every
                 important work of design. He is working fast, clean and present
                 great usability results.
