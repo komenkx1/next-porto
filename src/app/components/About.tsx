@@ -5,8 +5,8 @@ export default function About() {
   return (
     <>
       <div className="lg:grid md:grid grid-cols-2 lg:my-10">
-        <div className="contatct flex justify-center items-center">
-          <div className=" cursor-pointer group mx-2 p-14 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100">
+        <div data-aos="fade-left" data-aos-delay="200" className="contatct flex justify-center items-center">
+          <div className="cursor-pointer group mx-2 p-14 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100">
             <div className="image">
               <div
                 style={{
@@ -43,7 +43,7 @@ export default function About() {
             </div>
           </div>
         </div>
-        <div className="desc lg:text-start md:text-start text-center lg:my-0 md:my-0 my-7">
+        <div data-aos="fade-right" data-aos-delay="200" className="desc lg:text-start md:text-start text-center lg:my-0 md:my-0 my-7">
           <h3
             className="text-gray-200
             lg:text-[40px]

@@ -6,6 +6,8 @@ import {
 } from "@heroicons/react/16/solid";
 import { useMenuStore } from "../store/menu";
 import { useEffect, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function Header() {
   const {
@@ -31,11 +33,23 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    AOS.init({
+      easing: "ease-out-cubic",
+      once: true,
+      offset: 50,
+      delay: 50,
+    });
+  });
   return (
     <div
+      data-aos="fade"
       id="header"
       className={`relative lg:fixed w-full top-0 z-50 transition-all ${
-        scrolling ? "lg:bg-clip-padding lg:backdrop-filter lg:backdrop-blur-lg lg:bg-opacity-10 lg:bg-gray-200" : ""
+        scrolling
+          ? "lg:bg-clip-padding lg:backdrop-filter lg:backdrop-blur-lg lg:bg-opacity-10 lg:bg-gray-200"
+          : ""
       }`}
     >
       <div className=" lg:px-28 px-10 mx-auto h-24 lg:justify-center justify-between items-center flex">

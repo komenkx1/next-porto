@@ -19,7 +19,7 @@ export default function Certificate() {
   };
   return (
     <>
-      <div className="py-10">
+      <div className="py-10" data-aos="fade" data-aos-delay="200">
         <HeaderSection
           title="Certificate"
           description="
