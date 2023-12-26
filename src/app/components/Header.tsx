@@ -86,7 +86,9 @@ export default function Header() {
               >
                 <div
                   onClick={scrollTo(item.link)}
-                  className="text-violet-10 text-base font-medium font-['Space Grotesk'] leading-normal cursor-pointer hover:bg-white hover:text-black hover:p-2 hover:rounded-md transition-all lg:py-0 py-1"
+                  className={`${
+                    item.isActive ? "bg-white text-black p-2 rounded-md transition-all !py-2" : ""
+                  } text-violet-10 text-base font-medium font-['Space Grotesk'] leading-normal cursor-pointer hover:bg-white hover:text-black hover:p-2 hover:rounded-md transition-all lg:py-0 py-1`}
                 >
                   {item.title}
                 </div>
