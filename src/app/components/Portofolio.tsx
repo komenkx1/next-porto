@@ -19,7 +19,7 @@ export default function Portofolio() {
   }, [categories]);
   return (
     <>
-      <div className="ttile">
+      <div className="ttile" id="portofolio">
         <div data-aos="fade-left">
           <HeaderSection
             title="My Work"

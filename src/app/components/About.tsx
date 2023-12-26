@@ -8,9 +8,9 @@ export default function About() {
   const contactImageRef = useRef(null);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e:any) => {
       const { clientX, clientY } = e;
-      const rect = contactImageRef.current.getBoundingClientRect();
+      const rect = contactImageRef.current ?  contactImageRef.current.getBoundingClientRect() : null;
 
       // Menemukan titik tengah elemen
       const centerX = rect.width / 2;
@@ -34,7 +34,7 @@ export default function About() {
   }, []);
   return (
     <>
-      <div className="lg:grid md:grid grid-cols-2 lg:my-10">
+      <div id="about" className="lg:grid md:grid grid-cols-2 lg:my-10">
         <div
           id="contactImage"
           className="contatct flex justify-center items-center"

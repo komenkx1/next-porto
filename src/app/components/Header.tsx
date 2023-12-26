@@ -14,6 +14,7 @@ export default function Header() {
     menu: menu,
     expandMenu: expandMenu,
     menuExpanded: expandedMenu,
+    scrollTo: scrollTo,
   } = useMenuStore();
 
   const [scrolling, setScrolling] = useState(false);
@@ -42,6 +43,7 @@ export default function Header() {
       delay: 50,
     });
   });
+
   return (
     <div
       data-aos="fade"
@@ -82,7 +84,10 @@ export default function Header() {
                 key={index}
                 className="lg:flex justify-center items-center gap-6 "
               >
-                <div className="text-violet-10 text-base font-medium font-['Space Grotesk'] leading-normal cursor-pointer hover:bg-white hover:text-black hover:p-2 hover:rounded-md transition-all lg:py-0 py-1">
+                <div
+                  onClick={scrollTo(item.link)}
+                  className="text-violet-10 text-base font-medium font-['Space Grotesk'] leading-normal cursor-pointer hover:bg-white hover:text-black hover:p-2 hover:rounded-md transition-all lg:py-0 py-1"
+                >
                   {item.title}
                 </div>
                 {!isLastItem ? (
