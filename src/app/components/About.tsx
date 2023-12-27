@@ -80,7 +80,7 @@ export default function About() {
           </div>
         </div>
         <div className="desc lg:text-start md:text-start text-center lg:my-0 md:my-0 my-7">
-          <h3
+          <h1
             className="text-gray-200
             lg:text-[40px]
             md:text-[30px]
@@ -92,7 +92,7 @@ export default function About() {
             mb-2"
           >
             About me
-          </h3>
+          </h1>
           <span
             className="
         text-gray-300

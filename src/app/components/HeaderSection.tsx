@@ -11,7 +11,7 @@ export default function HeaderSection({
 }: HeaderSectionProps) {
   return (
     <>
-      <h3
+      <h1
         className="
             text-gray-200
             lg:text-[40px]
@@ -23,7 +23,7 @@ export default function HeaderSection({
             "
       >
         {title}
-      </h3>
+      </h1>
       <div className="header lg:text-start md:text-start text-center lg:flex md:flex justify-between items-center">
         <span
           className="

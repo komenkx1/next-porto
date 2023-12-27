@@ -2,7 +2,7 @@ export default function Word() {
   return (
     <>
       <div id="resource" className="section title w-full text-center lg:mb-10 md:mb-8 mb-5 mt-3">
-        <h3
+        <h1
          data-aos="fade-down"
           className="
           text-gray-200
@@ -17,7 +17,7 @@ export default function Word() {
         "
         >
           Kind Words
-        </h3>
+        </h1>
         <span
          data-aos="fade-down" data-aos-delay="200"
           className="text-gray-300
