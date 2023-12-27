@@ -41,7 +41,7 @@ export default function About() {
         >
           <div
             ref={contactImageRef}
-            className="hover-effect cursor-pointer group mx-2 p-14 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100"
+            className="hover-effect cursor-pointer shadow shadow-gray-600 group mx-2 p-14 bg-gray-200 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-900"
           >
             <div className="image">
               <div
