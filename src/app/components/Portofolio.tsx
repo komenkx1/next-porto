@@ -87,8 +87,7 @@ export default function Portofolio() {
         <div data-aos="fade-left">
           <HeaderSection
             title="My Work"
-            description="Here are some of my design works that showcase my 
-            design skills and expertise. Click on each project to see"
+            description="Here are some of myapp works that showcase my programming skills and expertise. Click on each project to see"
           >
             {futureCategory.map((category, index) => {
               const isLastIndex: boolean = index === futureCategory.length - 1;
@@ -129,7 +128,9 @@ export default function Portofolio() {
             <div
               data-aos="fade-left"
               className={`${
-                !isSearch ? "invisible absolute" : "flex items-center gap-2 aos-init aos-animate"
+                !isSearch
+                  ? "invisible absolute"
+                  : "flex items-center gap-2 aos-init aos-animate"
               }`}
             >
               <input

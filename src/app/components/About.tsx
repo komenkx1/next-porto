@@ -8,9 +8,11 @@ export default function About() {
   const contactImageRef = useRef(null);
 
   useEffect(() => {
-    const handleMouseMove = (e:any) => {
+    const handleMouseMove = (e: any) => {
       const { clientX, clientY } = e;
-      const rect = contactImageRef.current ?  contactImageRef.current.getBoundingClientRect() : null;
+      const rect = contactImageRef.current
+        ? contactImageRef.current.getBoundingClientRect()
+        : null;
 
       // Menemukan titik tengah elemen
       const centerX = rect.width / 2;
@@ -106,11 +108,7 @@ export default function About() {
         leading-7
         "
           >
-            {`Growing up in a small village without access to the internet or the
-            latest technology sparked my curiosity for computers. I began
-            learning Photoshop in a photo studio where I paid for. My love for
-            gaming led me to play FPS video games like PUBG and Valorant, which
-            taught me valuable skills in making critical decisions under`}
+            {`Hello, I'm Mang Wahyu! I am a software developer. My main expertise is developing web applications and my main Soft skill is having responsibility in the workplace, very good at adapting in any situation and having a very high curiosity. Until now I am still learning until I can be better. Hopefully we can connect and start building connections from here!`}
           </span>
           <div className="lg:my-7 md:my-5 my-3">
             <Button title="Contact me" />
@@ -125,7 +123,7 @@ export default function About() {
         }
 
         .hover-effect:hover {
-          transform: perspective(1000px) rotateX(${cursorPosition.y / 10}deg) 
+          transform: perspective(1000px) rotateX(${cursorPosition.y / 10}deg)
             rotateY(${cursorPosition.x / 10}deg);
           backface-visibility: hidden;
         }

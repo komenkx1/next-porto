@@ -1,14 +1,17 @@
 import { ArrowUpRightIcon } from "@heroicons/react/16/solid";
+import Image from "next/image";
 
 export default function PortoFolioCard() {
   return (
     <>
       <div className=" flex-col justify-start items-start gap-4 lg:inline-flex cursor-pointer group">
         <div className="w-full lg:h-[277px]">
-          <img
+          <Image
+            width={492}
+            height={277}
             className="lg:self-stretch w-full h-[277px] rounded-xl object-cover object-center"
             src="https://via.placeholder.com/492x977"
-            alt="Placeholder"
+            alt="project thumbnail"
           />
         </div>
         <div className="transition-all justify-between w-full items-center gap-[50px] inline-flex lg:my-0 my-5">
