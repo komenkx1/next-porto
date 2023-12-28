@@ -6,8 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import ImageCertificate from "./ImageCertificate";
 // eslint-disable-next-line react/display-name
 const SliderCarousel = forwardRef((props, ref) => {
-  // Your SliderCarousel component logic goes here
-
+  
   const carouselRef = useRef<Slider>(null);
 
   const settings = {
