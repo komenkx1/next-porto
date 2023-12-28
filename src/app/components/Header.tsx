@@ -4,7 +4,7 @@ import {
   EnvelopeIcon,
   XMarkIcon,
 } from "@heroicons/react/16/solid";
-import { useMenuStore } from "../store/menu";
+import { useMenuStore } from "../store/menu.store";
 import { use, useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";

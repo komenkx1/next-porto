@@ -1,6 +1,6 @@
 "use client";
 import { ArrowDownCircleIcon } from "@heroicons/react/16/solid";
-import { useMenuStore } from "../store/menu";
+import { useMenuStore } from "../store/menu.store";
 
 export default function Hero() {
   const {

@@ -5,7 +5,7 @@ import Word from "./components/Word";
 import Certificate from "./components/Certificate";
 import About from "./components/About";
 import { useEffect } from "react";
-import { useMenuStore } from "./store/menu";
+import { useMenuStore } from "./store/menu.store";
 import Fancybox from "./components/Fancybox";
 
 export default function Home() {
