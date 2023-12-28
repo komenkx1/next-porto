@@ -5,11 +5,15 @@ import {
   XMarkIcon,
 } from "@heroicons/react/16/solid";
 import { useMenuStore } from "../store/menu";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 export default function Header() {
+  const [isShowItemContact, setShowContact] = useState(false);
+
   const {
     menu: menu,
     expandMenu: expandMenu,
@@ -22,7 +26,7 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const header = document.getElementById("header"); // Add an id to the header div
+      const header = document.getElementById("header");
       if (header) {
         setScrolling(scrollPosition > header.clientHeight);
       }
@@ -44,6 +48,16 @@ export default function Header() {
     });
   });
 
+  useEffect(() => {
+    setTimeout(() => {
+      const contactItem = document.getElementById("contactItem");
+      if (isShowItemContact == false && contactItem) {
+        contactItem?.classList.add("hidden");
+      } else {
+        contactItem?.classList.remove("hidden");
+      }
+    }, 300);
+  }, [isShowItemContact]);
   return (
     <div
       data-aos="fade"
@@ -87,7 +101,9 @@ export default function Header() {
                 <div
                   onClick={scrollTo(item.link)}
                   className={`${
-                    item.isActive ? "bg-white text-black p-2 rounded-md transition-all !py-2" : ""
+                    item.isActive
+                      ? "bg-white text-black p-2 rounded-md transition-all !py-2"
+                      : ""
                   } text-violet-10 text-base font-medium font-['Space Grotesk'] leading-normal cursor-pointer hover:bg-white hover:text-black hover:p-2 hover:rounded-md transition-all lg:py-0 py-1`}
                 >
                   {item.title}
@@ -101,12 +117,68 @@ export default function Header() {
             );
           })}
         </div>
-        <div className="w-32 justify-end items-center gap-2 group cursor-pointer transition-all lg:flex hidden">
-          <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black px-3.5 py-[15px] rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
-            <EnvelopeIcon className="w-4 h-4" strokeWidth={2} />
+        <div className="lg:block hidden">
+          <div
+            onClick={() => {
+              setShowContact((prevState) => !prevState);
+            }}
+            className="w-32 justify-end items-center gap-2 group cursor-pointer transition-all lg:flex md:flex hidden z-30"
+          >
+            <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black px-3.5 py-[15px] rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
+              <EnvelopeIcon className="w-4 h-4" strokeWidth={2} />
+            </div>
+            <div className="text-gray-300 text-base font-medium font-['Space Grotesk'] leading-normal">
+              Let’s Talk
+            </div>
           </div>
-          <div className="text-gray-300 text-base font-medium font-['Space Grotesk'] leading-normal">
-            Let’s Talk
+          <div
+            id="contactItem"
+            className={`absolute ml-1 !transition-all  z-0  ${
+              isShowItemContact ? "opacity-100 top-[85px]" : "top-[75px] opacity-0"
+            }`}
+          >
+            <div
+              data-aos="fade-down"
+              data-aos-delay="200"
+              className={`w-32 mb-3 justify-start items-center gap-2 group cursor-pointer transition-all lg:flex hidden ${
+                isShowItemContact ? "" : "hidden"
+              }`}
+            >
+              <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black px-3.5 py-[15px] rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
+                <EnvelopeIcon className="w-4 h-4" strokeWidth={2} />
+              </div>
+              <div className="text-gray-300 text-base font-medium font-['Space Grotesk'] leading-normal">
+                Email
+              </div>
+            </div>
+            <div
+              data-aos="fade-down"
+              data-aos-delay="400"
+              className={`w-32 mb-3 justify-start items-center gap-2 group cursor-pointer transition-all lg:flex hidden ${
+                isShowItemContact ? "" : "hidden"
+              }`}
+            >
+              <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black px-3.5 py-[15px] rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
+              <FontAwesomeIcon icon={faLinkedin} className="w-4 h-4" strokeWidth={2} />
+              </div>
+              <div className="text-gray-300 text-base font-medium font-['Space Grotesk'] leading-normal">
+                Linkedin
+              </div>
+            </div>
+            <div
+              data-aos="fade-down"
+              data-aos-delay="600"
+              className={`w-32 mb-3 justify-start items-center gap-2 group cursor-pointer transition-all lg:flex hidden ${
+                isShowItemContact ? "" : "hidden"
+              }`}
+            >
+              <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black px-3.5 py-[15px] rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
+              <FontAwesomeIcon icon={faInstagram} className="w-4 h-4" strokeWidth={2} />
+              </div>
+              <div className="text-gray-300 text-base font-medium font-['Space Grotesk'] leading-normal">
+                Instagram
+              </div>
+            </div>
           </div>
         </div>
       </div>
