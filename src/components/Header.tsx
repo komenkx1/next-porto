@@ -1,6 +1,7 @@
 "use client";
 import {
   Bars3BottomLeftIcon,
+  DevicePhoneMobileIcon,
   EnvelopeIcon,
   XMarkIcon,
 } from "@heroicons/react/16/solid";
@@ -123,7 +124,7 @@ export default function Header() {
             className="w-32 justify-end items-center gap-2 group cursor-pointer transition-all lg:flex md:flex hidden z-30"
           >
             <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black px-3.5 py-[15px] rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
-              <EnvelopeIcon className="w-4 h-4" strokeWidth={2} />
+              <DevicePhoneMobileIcon className="w-4 h-4" strokeWidth={2} />
             </div>
             <div className="text-gray-300 text-base font-medium font-['Space Grotesk'] leading-normal">
               Let’s Talk
