@@ -1,11 +1,11 @@
 "use client";
-import Hero from "./components/Hero";
-import Portofolio from "./components/Portofolio";
-import Word from "./components/Word";
-import Certificate from "./components/Certificate";
-import About from "./components/About";
+import Hero from "../components/Hero";
+import Portofolio from "../components/Portofolio";
+import Word from "../components/Word";
+import Certificate from "../components/Certificate";
+import About from "../components/About";
 import { useEffect } from "react";
-import { useSetActiveMenu } from "./hooks/menu";
+import { useSetActiveMenu } from "../hooks/menu";
 export default function Home() {
   const setActiveMenu = useSetActiveMenu();
 

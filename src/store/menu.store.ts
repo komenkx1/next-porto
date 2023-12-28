@@ -1,10 +1,5 @@
 import { create } from "zustand";
 
-type Menu = {
-  title: string;
-  link: string;
-  isActive: boolean;
-};
 
 type MenuStore = {
   menu: Menu[];

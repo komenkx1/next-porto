@@ -9,12 +9,12 @@ import {
   PhoneIcon,
   XMarkIcon,
 } from "@heroicons/react/16/solid";
-import { useCategoryStore } from "../store/categories.store";
+import { useCategoryStore } from "@/store/categories.store";
 import { useEffect, useMemo, useState } from "react";
 import PortoFolioCard from "./PortofolioCard";
 import HeaderSection from "./HeaderSection";
 import Button from "./Button";
-import { usePortofolioStore } from "../store/portofolio.store";
+import { usePortofolioStore } from "@/store/portofolio.store";
 import {useloadMorePortofolio} from "../hooks/portofolio";
 
 export default function Portofolio() {

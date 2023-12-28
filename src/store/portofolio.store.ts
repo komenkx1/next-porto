@@ -1,23 +1,5 @@
 import { create } from "zustand";
 
-type Category = {
-  title: string;
-  isFutured?: boolean;
-};
-
-type Tag = {
-  title: string;
-};
-
-type Portofolio = {
-  title: string;
-  description: string;
-  image: string;
-  link: string;
-  category: Category;
-  tags: Tag[];
-};
-
 type PortofolioStore = {
   portofolio: Portofolio[];
   setPortofolio: (portofolio: Portofolio[]) => void;

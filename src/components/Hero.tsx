@@ -3,7 +3,7 @@ import { ArrowDownCircleIcon } from "@heroicons/react/16/solid";
 import { useScrollTo } from "../hooks/menu";
 
 export default function Hero() {
-  const scrollTo: any = useScrollTo();
+  const scrollTo = useScrollTo();
 
   return (
     <>

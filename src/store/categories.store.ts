@@ -1,10 +1,4 @@
 import { create } from "zustand";
-
-type Category = {
-  title: string;
-  isFutured?: boolean;
-};
-
 type CategoryStore = {
   categories: Category[];
 };
