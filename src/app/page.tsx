@@ -6,11 +6,10 @@ import Certificate from "./components/Certificate";
 import About from "./components/About";
 import { useEffect } from "react";
 import { useMenuStore } from "./store/menu";
+import Fancybox from "./components/Fancybox";
 
 export default function Home() {
-  const {
-    setActiveMenu: setActiveMenu,
-  } = useMenuStore();
+  const { setActiveMenu: setActiveMenu } = useMenuStore();
 
   useEffect(() => {
     const handleScroll = () => {

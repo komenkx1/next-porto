@@ -64,3 +64,7 @@ html, body {
 .hover-effect:hover {
   transform: rotateX(10deg) rotateY(10deg);
 } */
+
+a:focus {
+  outline: none;
+}
