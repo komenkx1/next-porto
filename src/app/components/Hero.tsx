@@ -1,15 +1,16 @@
 "use client";
 import { ArrowDownCircleIcon } from "@heroicons/react/16/solid";
-import { useMenuStore } from "../store/menu.store";
+import { useScrollTo } from "../hooks/menu";
 
 export default function Hero() {
-  const {
-    scrollTo: scrollTo,
-  } = useMenuStore();
+  const scrollTo: any = useScrollTo();
 
   return (
     <>
-      <div id="home" className="section hero lg:px-28 lg:py-32 py-7 lg:mt-16 text-center">
+      <div
+        id="home"
+        className="section hero lg:px-28 lg:py-32 py-7 lg:mt-16 text-center"
+      >
         <h1
           data-aos="fade"
           className="text-gray-200

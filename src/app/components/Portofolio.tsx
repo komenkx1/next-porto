@@ -15,11 +15,12 @@ import PortoFolioCard from "./PortofolioCard";
 import HeaderSection from "./HeaderSection";
 import Button from "./Button";
 import { usePortofolioStore } from "../store/portofolio.store";
+import {useloadMorePortofolio} from "../hooks/portofolio";
 
 export default function Portofolio() {
   const [isSearch, setSearch] = useState(false);
   const { categories: categories } = useCategoryStore();
-  const { portofolio: portofolio, loadMorePortofolio: loadMorePortofolio } =
+  const { portofolio: portofolio } =
     usePortofolioStore();
   const portofolios = [
     {
@@ -77,6 +78,7 @@ export default function Portofolio() {
       ],
     },
   ];
+  const loadMorePortofolio = useloadMorePortofolio();
   const futureCategory = useMemo(() => {
     return categories.filter((category) => category.isFutured === true);
   }, [categories]);

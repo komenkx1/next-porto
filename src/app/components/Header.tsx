@@ -10,16 +10,13 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faLinkedin } from "@fortawesome/free-brands-svg-icons";
-
+import { useExpandMenu, useScrollTo } from "../hooks/menu";
 export default function Header() {
   const [isShowItemContact, setShowContact] = useState(false);
+  const expandMenu = useExpandMenu();
+  const scrollTo = useScrollTo();
 
-  const {
-    menu: menu,
-    expandMenu: expandMenu,
-    menuExpanded: expandedMenu,
-    scrollTo: scrollTo,
-  } = useMenuStore();
+  const { menu: menu, menuExpanded: expandedMenu } = useMenuStore();
 
   const [scrolling, setScrolling] = useState(false);
 
@@ -134,7 +131,9 @@ export default function Header() {
           <div
             id="contactItem"
             className={`absolute ml-1 !transition-all  z-0  ${
-              isShowItemContact ? "opacity-100 top-[85px]" : "top-[75px] opacity-0"
+              isShowItemContact
+                ? "opacity-100 top-[85px]"
+                : "top-[75px] opacity-0"
             }`}
           >
             <div
@@ -159,7 +158,11 @@ export default function Header() {
               }`}
             >
               <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black px-3.5 py-[15px] rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
-              <FontAwesomeIcon icon={faLinkedin} className="w-4 h-4" strokeWidth={2} />
+                <FontAwesomeIcon
+                  icon={faLinkedin}
+                  className="w-4 h-4"
+                  strokeWidth={2}
+                />
               </div>
               <div className="text-gray-300 text-base font-medium font-['Space Grotesk'] leading-normal">
                 Linkedin
@@ -173,7 +176,11 @@ export default function Header() {
               }`}
             >
               <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black px-3.5 py-[15px] rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
-              <FontAwesomeIcon icon={faInstagram} className="w-4 h-4" strokeWidth={2} />
+                <FontAwesomeIcon
+                  icon={faInstagram}
+                  className="w-4 h-4"
+                  strokeWidth={2}
+                />
               </div>
               <div className="text-gray-300 text-base font-medium font-['Space Grotesk'] leading-normal">
                 Instagram

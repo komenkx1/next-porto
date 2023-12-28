@@ -20,7 +20,6 @@ type Portofolio = {
 
 type PortofolioStore = {
   portofolio: Portofolio[];
-  loadMorePortofolio: (portofolio: Portofolio[]) => void;
   setPortofolio: (portofolio: Portofolio[]) => void;
 };
 
@@ -85,7 +84,4 @@ export const usePortofolioStore = create<PortofolioStore>((set) => ({
   portofolio: portofolio,
   setPortofolio: (newPortofolio: Portofolio[]) =>
     set({ portofolio: newPortofolio }),
-  loadMorePortofolio: (newPortofolio: Portofolio[]) => {
-    set((state) => ({ portofolio: [...state.portofolio, ...newPortofolio] }));
-  },
 }));
