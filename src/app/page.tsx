@@ -6,11 +6,8 @@ import Certificate from "../components/Certificate";
 import About from "../components/About";
 import { use, useEffect } from "react";
 import { useSetActiveMenu } from "../hooks/menu";
-import { useGetUser } from "@/queries/user.query";
-import { useUserStore } from "@/store/user.store";
 export default function Home() {
   const setActiveMenu = useSetActiveMenu();
-  const getUserActive = useGetUser();
   useEffect(() => {
     const handleScroll = () => {
       const targetElement = document.querySelectorAll(".section");

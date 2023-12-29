@@ -62,6 +62,7 @@ export default function About() {
             <div className="contact-profile text-center w-full">
               <p
                 className="
+                capitalize 
             text-gray-200
             text-[32px]
             font-bold
@@ -72,7 +73,7 @@ export default function About() {
                 {isLoadingUser ? "Loading..." : user?.name}
               </p>
               <p
-                className="text-gray-300
+                className="capitalize text-gray-300
                         text-xl
                         font-normal
                         Grotesk']
