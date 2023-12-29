@@ -27,7 +27,6 @@ type Jargon = {
   user_id: number;
   primary_text: string;
   secondary_text: string;
-  is_active: boolean;
 };
 
 type User = {
