@@ -22,6 +22,14 @@ type Menu = {
   isActive: boolean;
 };
 
+type Jargon = {
+  id: number;
+  user_id: number;
+  primary_text: string;
+  secondary_text: string;
+  is_active: boolean;
+};
+
 type User = {
   id: number;
   name: string;
@@ -32,7 +40,7 @@ type User = {
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
-  // jargon?: Jargon[];
+  jargon?: Jargon;
   // portofolio?: Portofolio[];
   // certificate?: Certificate[];
 };

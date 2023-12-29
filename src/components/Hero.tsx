@@ -1,8 +1,12 @@
 "use client";
 import { ArrowDownCircleIcon } from "@heroicons/react/16/solid";
 import { useScrollTo } from "../hooks/menu";
+import { useGetUser } from "@/queries/user.query";
+import { useUserStore } from "@/store/user.store";
 
 export default function Hero() {
+  const { isLoading: isLoadingUser } = useGetUser();
+  const { user: user } = useUserStore();
   const scrollTo = useScrollTo();
 
   return (
@@ -21,7 +25,7 @@ export default function Hero() {
         lg:leading-[72px]
         pb-6"
         >
-          Crafting Memorable User Experiences Application for Business Success
+          {isLoadingUser ? "Loading..." : user?.jargon?.primary_text}
         </h1>
         <div
           data-aos="fade"
@@ -29,9 +33,7 @@ export default function Hero() {
           className="text-center text-gray-300 lg:text-xl md:text-lg font-normal font-['Space Grotesk'] lg:leading-7 leading-normal
         text-base mb-10"
         >
-          I blend exquisite design with impeccable functionality for an
-          exceptional <br />
-          user experience, while keeping users captivated.
+          {isLoadingUser ? "Loading..." : user?.jargon?.secondary_text}
         </div>
         <div
           onClick={scrollTo("portofolio")}
