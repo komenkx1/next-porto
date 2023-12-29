@@ -10,7 +10,7 @@ export default function PortoFolioCard() {
             width={492}
             height={277}
             className="lg:self-stretch w-full h-[277px] rounded-xl object-cover object-center"
-            src="https://via.placeholder.com/492x977"
+            src="https://via.placeholder.com/492x277"
             alt="project thumbnail"
           />
         </div>

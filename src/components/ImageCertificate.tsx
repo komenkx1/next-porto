@@ -15,13 +15,13 @@ export default function ImageCertificate() {
           >
             <a
               data-fancybox="gallery"
-              href="https://via.placeholder.com/492x977"
+              href="https://via.placeholder.com/570x300"
             >
               <Image
                 width={570}
                 height={300}
                 className="w-[570px] h-[300px] rounded-xl object-cover object-center"
-                src="https://via.placeholder.com/492x977"
+                src="https://via.placeholder.com/570x300"
                 alt="Placeholder"
               />
             </a>
