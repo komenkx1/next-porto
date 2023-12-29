@@ -8,7 +8,7 @@ type Portofolio = {
 };
 
 type Category = {
-  title: string;
+  name: string;
   isFutured?: boolean;
 };
 

@@ -1,35 +1,12 @@
 import { create } from "zustand";
 type CategoryStore = {
   categories: Category[];
+  setCategory: (category: Category[]) => void;
 };
 
-const menu: Category[] = [
-  {
-    title: "Web",
-    isFutured: true,
-  },
-  {
-    title: "Mobile",
-    isFutured: true,
-  },
-  {
-    title: "Desktop",
-    isFutured: false,
-  },
-  {
-    title: "Javascript",
-    isFutured: false,
-  },
-  {
-    title: "Laravel",
-    isFutured: false,
-  },
-  {
-    title: "Other",
-    isFutured: false,
-  },
-];
+const menu: Category[] = [];
 
 export const useCategoryStore = create<CategoryStore>((set) => ({
   categories: menu,
+  setCategory: (newCategory: Category[]) => set({ categories: newCategory }),
 }));

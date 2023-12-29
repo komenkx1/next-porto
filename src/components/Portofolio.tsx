@@ -15,13 +15,14 @@ import PortoFolioCard from "./PortofolioCard";
 import HeaderSection from "./HeaderSection";
 import Button from "./Button";
 import { usePortofolioStore } from "@/store/portofolio.store";
-import {useloadMorePortofolio} from "../hooks/portofolio";
+import { useloadMorePortofolio } from "../hooks/portofolio";
+import { useGetCategory } from "@/queries/category.query";
 
 export default function Portofolio() {
   const [isSearch, setSearch] = useState(false);
+  const { isLoading: isLoadingCategory } = useGetCategory();
   const { categories: categories } = useCategoryStore();
-  const { portofolio: portofolio } =
-    usePortofolioStore();
+  const { portofolio: portofolio } = usePortofolioStore();
   const portofolios = [
     {
       title: "Mobile App 1",
@@ -29,7 +30,7 @@ export default function Portofolio() {
       image: "https://via.placeholder.com/150",
       link: "https://www.google.com",
       category: {
-        title: "Mobile",
+        name: "Mobile",
         isFutured: true,
       },
       tags: [
@@ -47,7 +48,7 @@ export default function Portofolio() {
       image: "https://via.placeholder.com/150",
       link: "https://www.google.com",
       category: {
-        title: "Web",
+        name: "Web",
         isFutured: true,
       },
       tags: [
@@ -65,7 +66,7 @@ export default function Portofolio() {
       image: "https://via.placeholder.com/150",
       link: "https://www.google.com",
       category: {
-        title: "Web",
+        name: "Web",
         isFutured: true,
       },
       tags: [
@@ -111,7 +112,7 @@ export default function Portofolio() {
                       color="#3B82F6 "
                     />
                   )}{" "}
-                  {category.title}
+                  {category.name}
                 </span>
               );
             })}
