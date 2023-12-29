@@ -2,11 +2,13 @@
 import Image from "next/image";
 import Button from "./Button";
 import { useEffect, useRef, useState } from "react";
-
+import { useUserStore } from "@/store/user.store";
+import { useGetUser } from "@/queries/user.query";
 export default function About() {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const contactImageRef = useRef(null);
-
+  const { isLoading: isLoadingUser } = useGetUser();
+  const { user: user } = useUserStore();
   useEffect(() => {
     const handleMouseMove = (e: any) => {
       const { clientX, clientY } = e;
@@ -48,7 +50,7 @@ export default function About() {
             <div className="image">
               <div
                 style={{
-                  backgroundImage: `url(/mangwahyu.png)`,
+                  backgroundImage: `url(http://localhost:3001/${user?.profileImage})`,
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "cover",
                   width: "200px",
@@ -67,7 +69,7 @@ export default function About() {
             Grotesk']
             leading-10"
               >
-                Mang Wahyu
+                {isLoadingUser ? "Loading..." : user?.name}
               </p>
               <p
                 className="text-gray-300
@@ -76,7 +78,7 @@ export default function About() {
                         Grotesk']
                         leading-7"
               >
-                Programmer
+                {isLoadingUser ? "Loading..." : user?.title}
               </p>
             </div>
           </div>
@@ -108,7 +110,7 @@ export default function About() {
         leading-7
         "
           >
-            {`Hello, I'm Mang Wahyu! I am a software developer. My main expertise is developing web applications and my main Soft skill is having responsibility in the workplace, very good at adapting in any situation and having a very high curiosity. Until now I am still learning until I can be better. Hopefully we can connect and start building connections from here!`}
+            {isLoadingUser ? "Loading..." : user?.description}
           </span>
           <div className="lg:my-7 md:my-5 my-3">
             <Button title="Contact me" />

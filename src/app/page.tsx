@@ -4,11 +4,13 @@ import Portofolio from "../components/Portofolio";
 import Word from "../components/Word";
 import Certificate from "../components/Certificate";
 import About from "../components/About";
-import { useEffect } from "react";
+import { use, useEffect } from "react";
 import { useSetActiveMenu } from "../hooks/menu";
+import { useGetUser } from "@/queries/user.query";
+import { useUserStore } from "@/store/user.store";
 export default function Home() {
   const setActiveMenu = useSetActiveMenu();
-
+  const getUserActive = useGetUser();
   useEffect(() => {
     const handleScroll = () => {
       const targetElement = document.querySelectorAll(".section");
@@ -45,6 +47,8 @@ export default function Home() {
       document.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  
 
   return (
     <>
