@@ -13,11 +13,12 @@ export default function Hero() {
     <>
       <div
         id="home"
-        className="section hero lg:px-28 lg:py-32 py-7 lg:mt-16 text-center"
+        className="section hero lg:px-28 lg:py-32 py-7 text-center"
       >
         <h1
           data-aos="fade"
           className="text-gray-200
+          lg:mt-16
         lg:text-[64px]
         md:text-[32px]
         text-[28px]

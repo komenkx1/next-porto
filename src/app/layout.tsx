@@ -20,19 +20,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        style={{
-          backgroundImage: `url(/bg/bg-element.png)`,
-          backgroundSize: "cover",
-        }}
-      >
-        <Provider>
-          <Header />
-          <div className="bg lg:px-28 px-10 mx-auto">
-            {children}
-            <Footer />
-          </div>
-        </Provider>
+      <body>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
