@@ -8,6 +8,7 @@ type Portofolio = {
 };
 
 type Category = {
+  id: number;
   name: string;
   isFutured?: boolean;
 };
@@ -48,4 +49,5 @@ type portofolioParams = {
   title?: string;
   page: number;
   pageSize: number;
+  category?: number;
 };

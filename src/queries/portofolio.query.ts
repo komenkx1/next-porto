@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 function useGetPortofolio(param: portofolioParams) {
   const setPortofolio = usePortofolioStore((state) => state.setPortofolio);
+  const setMaxPage = usePortofolioStore((state) => state.setMaxPage);
   const page = usePortofolioStore.getState().page;
   return useQuery({
     queryKey: ["portofolio", param],
@@ -18,6 +19,8 @@ function useGetPortofolio(param: portofolioParams) {
           if (currentPage === 1) {
             setPortofolio(portofolios.data);
           }
+          page == response.data?.totalPages ? setMaxPage(true) : setMaxPage(false);
+
           return portofolios;
         });
     },
