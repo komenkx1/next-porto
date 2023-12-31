@@ -1,10 +1,11 @@
 import { usePortofolioStore } from "@/store/portofolio.store";
 
-function useloadMorePortofolio() {
-  return (newPortofolio: Portofolio[]) =>
+function useLoadMorePortofolio() {
+  return (newPortofolio: Portofolio[]) => {
     usePortofolioStore.setState((state) => ({
       portofolio: [...state.portofolio, ...newPortofolio],
     }));
+  };
 }
 
-export { useloadMorePortofolio };
+export { useLoadMorePortofolio };

@@ -15,71 +15,35 @@ import PortoFolioCard from "./PortofolioCard";
 import HeaderSection from "./HeaderSection";
 import Button from "./Button";
 import { usePortofolioStore } from "@/store/portofolio.store";
-import { useloadMorePortofolio } from "../hooks/portofolio";
+import { useLoadMorePortofolio } from "../hooks/portofolio";
 import { useGetCategory } from "@/queries/category.query";
+import { useGetPortofolio } from "@/queries/portofolio.query";
 
 export default function Portofolio() {
   const [isSearch, setSearch] = useState(false);
   const { isLoading: isLoadingCategory } = useGetCategory();
+  const [isMaxPage, setMaxPage] = useState(false);
+  const { isLoading: isLoadingPortofolio, refetch: refetch } =
+    useGetPortofolio();
+  const addDataPagin = useLoadMorePortofolio();
   const { categories: categories } = useCategoryStore();
-  const { portofolio: portofolio } = usePortofolioStore();
-  const portofolios = [
-    {
-      title: "Mobile App 1",
-      description: "This is a mobile app description",
-      image: "https://via.placeholder.com/150",
-      link: "https://www.google.com",
-      category: {
-        name: "Mobile",
-        isFutured: true,
-      },
-      tags: [
-        {
-          title: "React Native",
-        },
-        {
-          title: "TypeScript",
-        },
-      ],
-    },
-    {
-      title: "Web App 1",
-      description: "This is a web app description",
-      image: "https://via.placeholder.com/150",
-      link: "https://www.google.com",
-      category: {
-        name: "Web",
-        isFutured: true,
-      },
-      tags: [
-        {
-          title: "React",
-        },
-        {
-          title: "TypeScript",
-        },
-      ],
-    },
-    {
-      title: "Web App 2",
-      description: "This is a web app description",
-      image: "https://via.placeholder.com/150",
-      link: "https://www.google.com",
-      category: {
-        name: "Web",
-        isFutured: true,
-      },
-      tags: [
-        {
-          title: "React",
-        },
-        {
-          title: "TypeScript",
-        },
-      ],
-    },
-  ];
-  const loadMorePortofolio = useloadMorePortofolio();
+  const {
+    portofolio: portofolio,
+    page: page,
+    setPage: setPage,
+  } = usePortofolioStore();
+
+  useEffect(() => {
+    refetch().then((res) => {
+      page != 1 ? addDataPagin(res.data.data) : null;
+      page == res.data.totalPages ? setMaxPage(true) : setMaxPage(false);
+    });
+  }, [page]);
+
+  const loadMorePortofolio = () => {
+    const currentPage = page;
+    setPage(currentPage + 1);
+  };
   const futureCategory = useMemo(() => {
     return categories.filter((category) => category.isFutured === true);
   }, [categories]);
@@ -162,19 +126,20 @@ export default function Portofolio() {
           className="content my-10 grid lg:grid-cols-3 md:grid-cols-2 gap-5 justify-center"
         >
           {portofolio.map((portofolio, index) => {
-            return <PortoFolioCard key={index} data-aos="fade-up" />;
+            return <PortoFolioCard title={portofolio.title} imageUrl={portofolio.image} key={index} data-aos="fade-up" />;
           })}
         </div>
         <div
           data-aos="fade-up"
           className="flex justify-center lg:py-8 md:py-6 pb-5"
         >
-          <Button
-            title="More This Way"
-            onClick={() => loadMorePortofolio(portofolios)}
-          >
-            <ArrowDownCircleIcon className="w-6 h-6 text-slate-50" />
-          </Button>
+          {!isMaxPage ? (
+            <Button title="More This Way" onClick={() => loadMorePortofolio()}>
+              <ArrowDownCircleIcon className="w-6 h-6 text-slate-50" />
+            </Button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </>

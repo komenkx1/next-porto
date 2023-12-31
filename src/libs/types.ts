@@ -43,3 +43,8 @@ type User = {
   // portofolio?: Portofolio[];
   // certificate?: Certificate[];
 };
+
+type portofolioParams = {
+  title?: string;
+  page: number;
+};

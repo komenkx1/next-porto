@@ -2,68 +2,19 @@ import { create } from "zustand";
 
 type PortofolioStore = {
   portofolio: Portofolio[];
+  page: number;
+  pageSize: number;
   setPortofolio: (portofolio: Portofolio[]) => void;
+  setPage: (page: number) => void;
 };
 
-const portofolio: Portofolio[] = [
-  {
-    title: "Mobile App 1",
-    description: "This is a mobile app description",
-    image: "https://via.placeholder.com/150",
-    link: "https://www.google.com",
-    category: {
-      title: "Mobile",
-      isFutured: true,
-    },
-    tags: [
-      {
-        title: "React Native",
-      },
-      {
-        title: "TypeScript",
-      },
-    ],
-  },
-  {
-    title: "Web App 1",
-    description: "This is a web app description",
-    image: "https://via.placeholder.com/150",
-    link: "https://www.google.com",
-    category: {
-      title: "Web",
-      isFutured: true,
-    },
-    tags: [
-      {
-        title: "React",
-      },
-      {
-        title: "TypeScript",
-      },
-    ],
-  },
-  {
-    title: "Web App 2",
-    description: "This is a web app description",
-    image: "https://via.placeholder.com/150",
-    link: "https://www.google.com",
-    category: {
-      title: "Web",
-      isFutured: true,
-    },
-    tags: [
-      {
-        title: "React",
-      },
-      {
-        title: "TypeScript",
-      },
-    ],
-  },
-];
+const portofolio: Portofolio[] = [];
 
 export const usePortofolioStore = create<PortofolioStore>((set) => ({
   portofolio: portofolio,
+  page: 1,
+  pageSize: 3,
+  setPage: (newPage: number) => set({ page: newPage }),
   setPortofolio: (newPortofolio: Portofolio[]) =>
     set({ portofolio: newPortofolio }),
 }));
