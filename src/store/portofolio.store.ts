@@ -6,6 +6,7 @@ type PortofolioStore = {
   pageSize: number;
   setPortofolio: (portofolio: Portofolio[]) => void;
   setPage: (page: number) => void;
+  resetPortofolio: () => void;
 };
 
 const portofolio: Portofolio[] = [];
@@ -17,4 +18,5 @@ export const usePortofolioStore = create<PortofolioStore>((set) => ({
   setPage: (newPage: number) => set({ page: newPage }),
   setPortofolio: (newPortofolio: Portofolio[]) =>
     set({ portofolio: newPortofolio }),
+  resetPortofolio: () => set({ portofolio: [], page: 1 }),
 }));

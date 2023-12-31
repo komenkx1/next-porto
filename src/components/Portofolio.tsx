@@ -23,27 +23,59 @@ export default function Portofolio() {
   const [isSearch, setSearch] = useState(false);
   const { isLoading: isLoadingCategory } = useGetCategory();
   const [isMaxPage, setMaxPage] = useState(false);
-  const { isLoading: isLoadingPortofolio, refetch: refetch } =
-    useGetPortofolio();
-  const addDataPagin = useLoadMorePortofolio();
-  const { categories: categories } = useCategoryStore();
   const {
     portofolio: portofolio,
     page: page,
     setPage: setPage,
+    resetPortofolio: resetPortofolio,
   } = usePortofolioStore();
-
-  useEffect(() => {
-    refetch().then((res) => {
-      page != 1 ? addDataPagin(res.data.data) : null;
-      page == res.data.totalPages ? setMaxPage(true) : setMaxPage(false);
-    });
-  }, [page]);
+  const [searchInput, setSearchInput] = useState("");
+  const [perPageParams, setPerPage] = useState(3);
+  const [searchParams, setSearchParams] = useState("");
+  const handleSearch = (e: any) => {
+    setSearchInput(e.target.value);
+    setTimeout(() => {
+      setSearchParams((prevSearchInput) => prevSearchInput = e.target.value);
+    }, 1500);
+  };
+  const { isLoading: isLoadingPortofolio, refetch: refetch } = useGetPortofolio(
+    {
+      page: page,
+      title: searchParams,
+      pageSize: perPageParams,
+    }
+  );
+  const addDataPagin = useLoadMorePortofolio();
+  const { categories: categories } = useCategoryStore();
 
   const loadMorePortofolio = () => {
-    const currentPage = page;
-    setPage(currentPage + 1);
+    try {
+      const currentPage = page;
+      setPage(currentPage + 1);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  useEffect(() => {
+    if (isSearch && searchInput != "") {
+      resetPortofolio();
+      setPerPage(100);
+    } else {
+      setSearchInput("");
+      setPerPage(3);
+    }
+    console.log(searchParams);
+
+    refetch().then((res) => {
+      if (page > 1) {
+        addDataPagin(res.data?.data ?? []);
+      }
+
+      page == res.data?.totalPages ? setMaxPage(true) : setMaxPage(false);
+    });
+  }, [page, searchParams, isSearch]);
+
   const futureCategory = useMemo(() => {
     return categories.filter((category) => category.isFutured === true);
   }, [categories]);
@@ -101,6 +133,8 @@ export default function Portofolio() {
               }`}
             >
               <input
+                value={searchInput}
+                onChange={(e) => handleSearch(e)}
                 type="text"
                 placeholder="Search Item"
                 className={`text-black w-full p-3 rounded-lg focus:outline-2 focus:outline-purple-500 ${
@@ -126,7 +160,14 @@ export default function Portofolio() {
           className="content my-10 grid lg:grid-cols-3 md:grid-cols-2 gap-5 justify-center"
         >
           {portofolio.map((portofolio, index) => {
-            return <PortoFolioCard title={portofolio.title} imageUrl={portofolio.image} key={index} data-aos="fade-up" />;
+            return (
+              <PortoFolioCard
+                title={portofolio.title}
+                imageUrl={portofolio.image}
+                key={index}
+                data-aos="fade-up"
+              />
+            );
           })}
         </div>
         <div

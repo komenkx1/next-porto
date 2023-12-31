@@ -47,4 +47,5 @@ type User = {
 type portofolioParams = {
   title?: string;
   page: number;
+  pageSize: number;
 };
