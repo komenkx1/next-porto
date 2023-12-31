@@ -4,11 +4,13 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ImageCertificate from "./ImageCertificate";
+type SliderProps = {
+  sliderData?: any;
+};
 // eslint-disable-next-line react/display-name
-const SliderCarousel = forwardRef((props, ref) => {
-  
+const SliderCarousel = forwardRef((props: SliderProps, ref) => {
   const carouselRef = useRef<Slider>(null);
-
+  console.log(props.sliderData);
   const settings = {
     speed: 500,
     slidesToShow: 3,
@@ -60,18 +62,13 @@ const SliderCarousel = forwardRef((props, ref) => {
   return (
     <div className="my-6">
       <Slider ref={carouselRef} {...settings}>
-        <div>
-          <ImageCertificate />
-        </div>
-        <div>
-          <ImageCertificate />
-        </div>
-        <div>
-          <ImageCertificate />
-        </div>
-        <div style={{ margin: "0 -10px" }}>
-          <ImageCertificate />
-        </div>
+        {props.sliderData?.map((data: any, index: number) => {
+          return (
+            <div key={index}>
+              <ImageCertificate />
+            </div>
+          );
+        })}
       </Slider>
     </div>
   );

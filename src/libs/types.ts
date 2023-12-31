@@ -45,6 +45,15 @@ type User = {
   // certificate?: Certificate[];
 };
 
+type Certificate = {
+  id: number;
+  title: string;
+  description: string;
+  thumbnail: string;
+  user_id: number;
+  user: User;
+};
+
 type portofolioParams = {
   title?: string;
   page: number;
