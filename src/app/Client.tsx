@@ -48,10 +48,13 @@ export default function Client() {
   }, []);
 
   return (
-    <div style={{
+    <div
+      style={{
         backgroundImage: `url(/bg/bg-element.png)`,
         backgroundSize: "cover",
-      }}>
+        backgroundColor: "black",
+      }}
+    >
       <Header />
       <div className="bg lg:px-28 px-10 mx-auto">
         <Hero />

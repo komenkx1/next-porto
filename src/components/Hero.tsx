@@ -1,11 +1,11 @@
 "use client";
 import { ArrowDownCircleIcon } from "@heroicons/react/16/solid";
 import { useScrollTo } from "../hooks/menu";
-import { useGetUser } from "@/queries/user.query";
+import { useGetUserActive } from "@/queries/user.query";
 import { useUserStore } from "@/store/user.store";
 
 export default function Hero() {
-  const { isLoading: isLoadingUser } = useGetUser();
+  const { isLoading: isLoadingUser } = useGetUserActive();
   const { user: user } = useUserStore();
   const scrollTo = useScrollTo();
 

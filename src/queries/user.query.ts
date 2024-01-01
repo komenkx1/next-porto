@@ -2,9 +2,8 @@ import api from "@/libs/api";
 import { useUserStore } from "@/store/user.store";
 import { useQuery } from "@tanstack/react-query";
 
-function useGetUser() {
+function useGetUserActive() {
   const setUser = useUserStore((state) => state.setUser);
-
   return useQuery({
     queryKey: ["user"],
     queryFn: () => {
@@ -15,12 +14,26 @@ function useGetUser() {
           },
         })
         .then((response) => {
-          const user = response.data.data[0];
-          setUser(user);
+          const user = response.data.data;
+          setUser(user[0]);
           return user;
         });
     },
   });
 }
 
-export { useGetUser };
+function useGetUser() {
+  const setUsers = useUserStore((state) => state.setUsers);
+  return useQuery({
+    queryKey: ["user"],
+    queryFn: () => {
+      return api.get("/user", {}).then((response) => {
+        const user = response.data.data;
+        setUsers(user);
+        return user;
+      });
+    },
+  });
+}
+
+export { useGetUserActive, useGetUser };

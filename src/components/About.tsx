@@ -3,11 +3,11 @@ import Image from "next/image";
 import Button from "./Button";
 import { useEffect, useRef, useState } from "react";
 import { useUserStore } from "@/store/user.store";
-import { useGetUser } from "@/queries/user.query";
+import { useGetUserActive } from "@/queries/user.query";
 export default function About() {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const contactImageRef = useRef(null);
-  const { isLoading: isLoadingUser } = useGetUser();
+  const { isLoading: isLoadingUser } = useGetUserActive();
   const { user: user } = useUserStore();
   useEffect(() => {
     const handleMouseMove = (e: any) => {

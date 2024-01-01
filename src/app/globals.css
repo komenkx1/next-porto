@@ -68,3 +68,7 @@ html, body {
 a:focus {
   outline: none;
 }
+
+ul{
+  color: black;
+}
