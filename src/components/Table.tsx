@@ -24,13 +24,14 @@ import {
   EllipsisVerticalIcon as VerticalDotsIcon,
 } from "@heroicons/react/16/solid";
 
-
 type Props = {
   columns: Array<any>;
   users: User[];
   visibleColumns: Array<any>;
   statusOptions: Array<any>;
+  isLoading: boolean;
   customRenderers?: Record<string, (item: any) => React.ReactNode>;
+  actionAdd?: () => void;
 };
 export default function TableComp(props: Props) {
   const INITIAL_VISIBLE_COLUMNS = props.visibleColumns ?? [];
@@ -161,7 +162,10 @@ export default function TableComp(props: Props) {
                   onSelectionChange={setStatusFilter}
                 >
                   {props.statusOptions.map((status: any) => (
-                    <DropdownItem key={status.uid} className="capitalize text-black">
+                    <DropdownItem
+                      key={status.uid}
+                      className="capitalize text-black"
+                    >
                       {status.name}
                     </DropdownItem>
                   ))}
@@ -186,13 +190,20 @@ export default function TableComp(props: Props) {
                 onSelectionChange={setVisibleColumns}
               >
                 {props.columns.map((column) => (
-                  <DropdownItem key={column.uid} className="capitalize text-black">
+                  <DropdownItem
+                    key={column.uid}
+                    className="capitalize text-black"
+                  >
                     {column.name}
                   </DropdownItem>
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <Button color="primary" endContent={<PlusIcon />}>
+            <Button
+              onClick={props.actionAdd}
+              color="primary"
+              endContent={<PlusIcon />}
+            >
               Add New
             </Button>
           </div>
@@ -293,7 +304,12 @@ export default function TableComp(props: Props) {
         )}
       </TableHeader>
 
-      <TableBody emptyContent={"No user found"} items={sortedItems}>
+      <TableBody
+        isLoading={props.isLoading}
+        loadingContent={"Loading..."}
+        emptyContent={props.isLoading ? "Please Wait" : "No data found"}
+        items={sortedItems}
+      >
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (

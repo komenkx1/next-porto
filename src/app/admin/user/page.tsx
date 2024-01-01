@@ -1,17 +1,14 @@
 "use client";
 import AdminActionMenu from "@/components/AdminActionMenu";
+import ModalComp from "@/components/Modal";
 import TableComp from "@/components/Table";
 import { useGetUser } from "@/queries/user.query";
 import { useUserStore } from "@/store/user.store";
 import {
-  Button,
   Chip,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
+  useDisclosure,
 } from "@nextui-org/react";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 export default function User() {
   const columns = [
@@ -21,8 +18,8 @@ export default function User() {
     { name: "Action", uid: "action" },
   ];
   const actionMenu = [
-    { title: "Edit", onClick: () => console.log("Edit") },
-    { title: "Delete", onClick: () => console.log("Edit") },
+    { title: "Edit", onClick: () => handleOpen("Edit User") },
+    { title: "Delete", onClick: () => handleOpen("Delete User") },
     { title: "Disable", onClick: () => console.log("Edit") },
   ];
   const visibleColumns = ["name", "title", "is_active", "action"];
@@ -57,8 +54,14 @@ export default function User() {
       ),
     };
   }, []);
-  const { isLoading: isUsersLoading, data: data } = useGetUser();
+  const { isLoading: isUsersLoading } = useGetUser();
   const { users: users } = useUserStore();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [modalTitle, setModalTitle] = useState("Create user");
+  const handleOpen = (modalTitle: string) => {
+    setModalTitle(modalTitle);
+    onOpen();
+  };
 
   return (
     <>
@@ -68,7 +71,18 @@ export default function User() {
         visibleColumns={visibleColumns}
         customRenderers={customRenderers}
         statusOptions={[]}
+        actionAdd={() => handleOpen("Create New User")}
+        isLoading={isUsersLoading}
       />
+      <ModalComp
+        title={modalTitle}
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        size="md"
+      >
+        <div className="form"></div>
+      </ModalComp>
     </>
   );
 }
