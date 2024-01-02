@@ -5,6 +5,7 @@ import TableComp from "@/components/Table";
 import {
   useDeleteUser,
   useGetUser,
+  useSaveSetActiveUser,
   useSaveUser,
   useUpdateUser,
 } from "@/queries/user.query";
@@ -54,7 +55,10 @@ export default function User() {
             onClick: () => handleOpenModalForm("Edit User", true, user),
           },
           { title: "Delete", onClick: () => handleOpenModalAlert(user.id) },
-          { title: "Disable", onClick: () => console.log("Edit") },
+          {
+            title: user.is_active ? "Disable" : "Enable",
+            onClick: () => handleOpenModalSetActive(user.id),
+          },
         ];
         return (
           <div className="">
@@ -77,6 +81,12 @@ export default function User() {
     isOpen: isOpenAlertModal,
     onOpen: openModalAlert,
     onClose: closeModalAlert,
+  } = useDisclosure();
+
+  const {
+    isOpen: isOpenSetActiveModal,
+    onOpen: openModalSetActive,
+    onClose: closeModalSetActive,
   } = useDisclosure();
   const [modalTitle, setModalTitle] = useState("Create user");
   const handleOpenModalForm = (
@@ -101,6 +111,10 @@ export default function User() {
   const handleOpenModalAlert = (setUserId: number) => {
     setUserid(setUserId);
     openModalAlert();
+  };
+  const handleOpenModalSetActive = (setUserId: number) => {
+    setUserid(setUserId);
+    openModalSetActive();
   };
   const {
     register,
@@ -134,7 +148,11 @@ export default function User() {
     isPending: isLoadingUpdate,
     isSuccess: isSuccessUpdate,
   } = useUpdateUser();
-
+  const {
+    mutate: saveActiveUser,
+    isPending: isLoadingSetActive,
+    isSuccess: isSuccessSetActive,
+  } = useSaveSetActiveUser();
   const onSubmit: SubmitHandler<User> = async (data) => {
     let dataForm = {};
 
@@ -157,6 +175,15 @@ export default function User() {
   const deleteUser = useCallback(() => {
     closeModalForm();
     removeUser(userId);
+  }, [userId]);
+
+  const setActiveUser = useCallback(() => {
+    closeModalSetActive();
+    const data = {
+      id: userId,
+      is_active: true,
+    };
+    saveActiveUser(data);
   }, [userId]);
 
   useEffect(() => {
@@ -254,6 +281,16 @@ export default function User() {
         onClose={closeModalAlert}
         onSubmit={deleteUser}
         description="Are you sure you want to delete this user?"
+        size="lg"
+      ></ModalAlert>
+
+      <ModalAlert
+        title="Delete User"
+        isOpen={isOpenSetActiveModal}
+        onOpen={openModalSetActive}
+        onClose={closeModalSetActive}
+        onSubmit={setActiveUser}
+        description="Are use sure to active this user?"
         size="lg"
       ></ModalAlert>
     </>

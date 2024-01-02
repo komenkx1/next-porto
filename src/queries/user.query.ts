@@ -83,10 +83,27 @@ function useDeleteUser() {
   });
 }
 
+function useSaveSetActiveUser() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ["user-set-active"],
+    mutationFn: (data: any) => {
+      return api.post(`/user/set-active-user/${data.id}`, data).then((response) => {
+        return response.data;
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries("user");
+    },
+  });
+}
+
 export {
   useGetUserActive,
   useGetUser,
   useSaveUser,
   useDeleteUser,
   useUpdateUser,
+  useSaveSetActiveUser,
 };
