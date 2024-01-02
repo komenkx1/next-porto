@@ -55,7 +55,6 @@ export default function Portofolio() {
       }
       setSearchParams((prevSearchInput) => (prevSearchInput = e.target.value));
     }, 1000);
-
   };
   const { isLoading: isLoadingPortofolio, refetch: refetch } = useGetPortofolio(
     {
@@ -101,6 +100,18 @@ export default function Portofolio() {
     return categories.filter((category) => category.isFutured === true);
   }, [categories]);
 
+  const portofolioIem = useMemo(() => {
+    return portofolio.map((portofolio, index) => {
+      return (
+        <PortoFolioCard
+          title={portofolio.title}
+          imageUrl={portofolio.image}
+          key={index}
+          data-aos="fade-up"
+        />
+      );
+    });
+  }, [portofolio]);
   return (
     <>
       <div className="section ttile" id="portofolio">
@@ -116,7 +127,11 @@ export default function Portofolio() {
                   key={index}
                   data-aos="fade-right"
                   onClick={() => setCategory(category.id)}
-                  className={`!transition-all flex gap-2 items-center cursor-pointer hover:bg-white hover:text-black hover:p-2 hover:rounded-lg ${category.id == categoryParams ? 'bg-white text-black p-2 rounded-lg' : ''} ${
+                  className={`!transition-all flex gap-2 items-center cursor-pointer hover:bg-white hover:text-black hover:p-2 hover:rounded-lg ${
+                    category.id == categoryParams
+                      ? "bg-white text-black p-2 rounded-lg"
+                      : ""
+                  } ${
                     isSearch
                       ? "invisible absolute"
                       : "block aos-init aos-animate"
@@ -181,16 +196,7 @@ export default function Portofolio() {
           data-aos-delay="500"
           className="content my-10 grid lg:grid-cols-3 md:grid-cols-2 gap-5 justify-center"
         >
-          {portofolio.map((portofolio, index) => {
-            return (
-              <PortoFolioCard
-                title={portofolio.title}
-                imageUrl={portofolio.image}
-                key={index}
-                data-aos="fade-up"
-              />
-            );
-          })}
+          {portofolioIem}
         </div>
         <div
           data-aos="fade-up"
