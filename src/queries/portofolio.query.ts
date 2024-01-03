@@ -1,6 +1,6 @@
 import api from "@/libs/api";
 import { usePortofolioStore } from "@/store/portofolio.store";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 function useGetPortofolio(param: portofolioParams) {
   const setPortofolio = usePortofolioStore((state) => state.setPortofolio);
@@ -19,7 +19,9 @@ function useGetPortofolio(param: portofolioParams) {
           if (currentPage === 1) {
             setPortofolio(portofolios.data);
           }
-          page == response.data?.totalPages ? setMaxPage(true) : setMaxPage(false);
+          page == response.data?.totalPages
+            ? setMaxPage(true)
+            : setMaxPage(false);
 
           return portofolios;
         });
@@ -27,4 +29,46 @@ function useGetPortofolio(param: portofolioParams) {
   });
 }
 
-export { useGetPortofolio };
+function useSavePortofolio() {
+  const queryClient = useGetPortofolio({
+    page: 1,
+    title: "",
+    pageSize: 9999999,
+  });
+
+  return useMutation({
+    mutationKey: ["porto-store"],
+    mutationFn: (portofolio: any) => {
+      return api.post("/portofolio", portofolio).then((response) => {
+        return response.data.data;
+      });
+    },
+    onSuccess: () => {
+      queryClient.refetch();
+    },
+  });
+}
+
+function useUpdatePortofolio() {
+  const queryClient = useGetPortofolio({
+    page: 1,
+    title: "",
+    pageSize: 9999999,
+  });
+
+  return useMutation({
+    mutationKey: ["porto-update"],
+    mutationFn: (portofolio: any) => {
+      return api
+        .put(`/portofolio/${portofolio.id}`, portofolio.value)
+        .then((response) => {
+          return response.data;
+        });
+    },
+    onSuccess: () => {
+      queryClient.refetch();
+    },
+  });
+}
+
+export { useGetPortofolio, useSavePortofolio, useUpdatePortofolio };

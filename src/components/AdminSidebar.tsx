@@ -15,7 +15,7 @@ export default function AdminSidebar() {
   const menu = [
     { title: "Dashboard", path: "/admin" },
     { title: "Users", path: "/admin/user" },
-    { title: "Portofolios", path: "/admin/portofolios" },
+    { title: "Portofolio", path: "/admin/portofolio" },
     { title: "Certificates", path: "/admin/certificates" },
     { title: "Contacts", path: "/admin/contacts" },
   ];
@@ -28,7 +28,7 @@ export default function AdminSidebar() {
           return <HomeIcon className="w-5 h-5" color="blue" />;
         case "/admin/user":
           return <UserIcon className="w-5 h-5" color="blue" />;
-        case "/admin/portofolios":
+        case "/admin/portofolio":
           return <DocumentIcon className="w-5 h-5" color="blue" />;
         case "/admin/certificates":
           return <DocumentArrowUpIcon className="w-5 h-5" color="blue" />;

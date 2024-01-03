@@ -36,7 +36,7 @@ function useGetUser() {
   });
 }
 function useSaveUser() {
-  const queryClient = useQueryClient();
+  const queryClient = useGetUser()
 
   return useMutation({
     mutationKey: ["user-store"],
@@ -46,13 +46,13 @@ function useSaveUser() {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries("user");
+      queryClient.refetch()
     },
   });
 }
 
 function useUpdateUser() {
-  const queryClient = useQueryClient();
+  const queryClient = useGetUser()
 
   return useMutation({
     mutationKey: ["user-update"],
@@ -62,13 +62,13 @@ function useUpdateUser() {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries("user");
+      queryClient.refetch()
     },
   });
 }
 
 function useDeleteUser() {
-  const queryClient = useQueryClient();
+  const queryClient = useGetUser()
 
   return useMutation({
     mutationKey: ["user-delete"],
@@ -78,13 +78,13 @@ function useDeleteUser() {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries("user");
+      queryClient.refetch()
     },
   });
 }
 
 function useSaveSetActiveUser() {
-  const queryClient = useQueryClient();
+  const queryClient = useGetUser()
 
   return useMutation({
     mutationKey: ["user-set-active"],
@@ -94,7 +94,7 @@ function useSaveSetActiveUser() {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries("user");
+      queryClient.refetch()
     },
   });
 }

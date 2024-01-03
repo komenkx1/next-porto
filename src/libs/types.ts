@@ -1,10 +1,11 @@
 type Portofolio = {
   title: string;
   description: string;
-  image: string;
+  thumbnail: string;
   link: string;
+  user: User;
   category: Category;
-  tags: Tag[];
+  portofolioTag: Array<any>;
 };
 
 type Category = {
@@ -14,7 +15,8 @@ type Category = {
 };
 
 type Tag = {
-  title: string;
+  id: number;
+  name: string;
 };
 
 type Menu = {
@@ -59,4 +61,5 @@ type portofolioParams = {
   page: number;
   pageSize: number;
   category?: number;
+  tags?: Array<Tag>;
 };
