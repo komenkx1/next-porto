@@ -127,7 +127,6 @@ export default function User() {
 
   const saveUser = useCallback(
     (data: User) => {
-      console.log(isEditMode, data);
       onSubmit(data);
     },
     [isEditMode]
