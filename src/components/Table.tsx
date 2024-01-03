@@ -26,7 +26,7 @@ import {
 
 type Props = {
   columns: Array<any>;
-  users: User[];
+  data: Array<any>;
   visibleColumns: Array<any>;
   statusOptions: Array<any>;
   isLoading: boolean;
@@ -59,7 +59,7 @@ export default function TableComp(props: Props) {
   }, [visibleColumns]);
 
   const filteredItems = useMemo(() => {
-    let filteredUsers = [...props.users];
+    let filteredUsers = [...props.data];
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
@@ -76,7 +76,7 @@ export default function TableComp(props: Props) {
     }
 
     return filteredUsers;
-  }, [props.users, filterValue, statusFilter]);
+  }, [props.data, filterValue, statusFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -210,7 +210,7 @@ export default function TableComp(props: Props) {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {props.users.length} data
+            Total {props.data.length} data
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
@@ -231,7 +231,7 @@ export default function TableComp(props: Props) {
     statusFilter,
     visibleColumns,
     onRowsPerPageChange,
-    props.users.length,
+    props.data.length,
     onSearchChange,
     hasSearchFilter,
   ]);

@@ -195,7 +195,7 @@ export default function User() {
     <>
       <TableComp
         columns={columns}
-        users={users ?? []}
+        data={users ?? []}
         visibleColumns={visibleColumns}
         customRenderers={customRenderers}
         statusOptions={[]}
