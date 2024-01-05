@@ -1,6 +1,6 @@
 import api from "@/libs/api";
 import { useCategoryStore } from "@/store/categories.store";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 function useGetCategory() {
   const setCategory = useCategoryStore((state) => state.setCategory);
@@ -17,4 +17,59 @@ function useGetCategory() {
   });
 }
 
-export { useGetCategory };
+function useSaveCategory() {
+  const queryClient = useGetCategory();
+
+  return useMutation({
+    mutationKey: ["category-store"],
+    mutationFn: (category: any) => {
+      return api.post("/category", category).then((response) => {
+        return response.data;
+      });
+    },
+    onSuccess: () => {
+      queryClient.refetch();
+    },
+  });
+}
+
+function useUpdateCategory() {
+  const queryClient = useGetCategory();
+
+  return useMutation({
+    mutationKey: ["category-update"],
+    mutationFn: (category: any) => {
+      return api
+        .put(`/category/${category.id}`, category.value)
+        .then((response) => {
+          return response.data;
+        });
+    },
+    onSuccess: () => {
+      queryClient.refetch();
+    },
+  });
+}
+
+function useDeleteCategory() {
+  const queryClient = useGetCategory();
+
+  return useMutation({
+    mutationKey: ["category-delete"],
+    mutationFn: (id: number) => {
+      return api.delete(`/category/${id}`).then((response) => {
+        return response.data;
+      });
+    },
+    onSuccess: () => {
+      queryClient.refetch();
+    },
+  });
+}
+
+export {
+  useGetCategory,
+  useSaveCategory,
+  useUpdateCategory,
+  useDeleteCategory,
+};

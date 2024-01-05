@@ -50,7 +50,7 @@ export default function About() {
             <div className="image">
               <div
                 style={{
-                  backgroundImage: `url(http://localhost:3001/${user?.profileImage})`,
+                  backgroundImage: `url(${user?.profileImage})`,
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "cover",
                   width: "200px",
