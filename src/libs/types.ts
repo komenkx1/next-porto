@@ -1,7 +1,8 @@
 type Portofolio = {
+  id: number;
   title: string;
-  user_id: number;
-  category_id: number;
+  user_id: string;
+  category_id: string;
   description: string;
   thumbnail: string;
   link: string;

@@ -26,7 +26,7 @@ export default function Categories() {
   const [isEditMode, setEditMode] = useState<boolean>(false);
   const { refetch, isLoading: isCategoryLoading } = useGetCategory();
   const { categories } = useCategoryStore();
-  const [userId, setUserid] = useState<number>(0);
+  const [categoryId, setCategoryid] = useState<number>(0);
 
   const {
     isOpen: isOpenModalForm,
@@ -105,8 +105,8 @@ export default function Categories() {
   }, [isSuccessSave, isSuccessRemove, isSuccessUpdate]);
 
   //function
-  const handleOpenModalAlert = (setUserId: number) => {
-    setUserid(setUserId);
+  const handleOpenModalAlert = (setCategoryId: number) => {
+    setCategoryid(setCategoryId);
     openModalAlert();
   };
   const saveCategory = useCallback(
@@ -130,8 +130,8 @@ export default function Categories() {
 
   const deletecategory = useCallback(() => {
     closeModalForm();
-    removeCategory(userId);
-  }, [userId]);
+    removeCategory(categoryId);
+  }, [categoryId]);
 
   const handleOpenModalForm = (
     modalTitle: string,

@@ -71,4 +71,29 @@ function useUpdatePortofolio() {
   });
 }
 
-export { useGetPortofolio, useSavePortofolio, useUpdatePortofolio };
+function useDeletePortofolio() {
+  const queryClient = useGetPortofolio({
+    page: 1,
+    title: "",
+    pageSize: 9999999,
+  });
+
+  return useMutation({
+    mutationKey: ["potofolio-delete"],
+    mutationFn: (id: number) => {
+      return api.delete(`/portofolio/${id}`).then((response) => {
+        return response.data;
+      });
+    },
+    onSuccess: () => {
+      queryClient.refetch();
+    },
+  });
+}
+
+export {
+  useGetPortofolio,
+  useSavePortofolio,
+  useUpdatePortofolio,
+  useDeletePortofolio,
+};

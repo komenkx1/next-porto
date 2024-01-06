@@ -2,10 +2,12 @@
 import AdminActionMenu from "@/components/AdminActionMenu";
 import CSelect from "@/components/CSelect";
 import ModalComp from "@/components/Modal";
+import ModalAlert from "@/components/ModalAlert";
 import TableComp from "@/components/Table";
 import { useGetCategory } from "@/queries/category.query";
 
 import {
+  useDeletePortofolio,
   useGetPortofolio,
   useSavePortofolio,
   useUpdatePortofolio,
@@ -33,10 +35,13 @@ export default function Portofolio() {
     { name: "CATEGORY", uid: "category" },
     { name: "Action", uid: "action" },
   ];
-
+  const { refetch } = useGetUser();
+  const { refetch: refecthCategory } = useGetCategory();
+  const { refetch: refetchTag } = useGetTag();
   const visibleColumns = ["user", "category", "title", "is_active", "action"];
   const [modalTitle, setModalTitle] = useState<string>("Create user");
   const [isEditMode, setEditMode] = useState<boolean>(false);
+  const [portofolioId, setPotofolioId] = useState<number>(0);
   const { users: users } = useUserStore();
   const { categories: categories } = useCategoryStore();
   const { tags: tag } = useTagStore();
@@ -50,20 +55,22 @@ export default function Portofolio() {
 
     if (isEdit && data) {
       setEditMode(true);
+      setValue("id", data.id);
       setValue("title", data.title);
       setValue("user_id", data.user_id);
       setValue("category_id", data.category_id);
       setValue("description", data.description);
       setValue("thumbnail", data.thumbnail);
       setValue("portofolioTag", data.portofolioTag);
-
-      console.log(data.portofolioTag);
     } else {
       setEditMode(false);
       reset();
     }
   };
-  const handleOpenModalAlert = () => {};
+  const handleOpenModalAlert = (setPortoId: number) => {
+    setPotofolioId(setPortoId);
+    openModalAlert();
+  };
   const onSubmit: SubmitHandler<Portofolio> = async (data) => {
     let dataForm = {};
     const formData = new FormData();
@@ -73,14 +80,19 @@ export default function Portofolio() {
     formData.append("description", data.description ?? "");
     formData.append("thumbnail", data.thumbnail[0] ?? "");
     formData.append("portofolioTag", JSON.stringify(data.portofolioTag));
-
-    isEditMode ? updateUser(dataForm) : storePortofolio(formData);
+    isEditMode ? (dataForm = { value: formData, id: data.id }) : formData;
+    isEditMode ? updatePortofolio(dataForm) : storePortofolio(formData);
   };
+  const {
+    isOpen: isOpenAlertModal,
+    onOpen: openModalAlert,
+    onClose: closeModalAlert,
+  } = useDisclosure();
 
   const resetForm = useCallback(() => {
     reset();
     closeModalForm();
-    // closeModalAlert();
+    closeModalAlert();
   }, []);
   const savePortofolio = useCallback(
     (data: Portofolio) => {
@@ -99,7 +111,7 @@ export default function Portofolio() {
             title: "Edit",
             onClick: () => handleOpenModalForm("Edit Portofolio", true, porto),
           },
-          { title: "Delete", onClick: () => handleOpenModalAlert() },
+          { title: "Delete", onClick: () => handleOpenModalAlert(porto.id) },
         ];
         return (
           <div className="">
@@ -130,13 +142,27 @@ export default function Portofolio() {
   } = useSavePortofolio();
 
   const {
-    mutate: updateUser,
+    mutate: updatePortofolio,
     isPending: isLoadingUpdate,
     isSuccess: isSuccessUpdate,
   } = useUpdatePortofolio();
-  const { refetch } = useGetUser();
-  const { refetch: refecthCategory } = useGetCategory();
-  const { refetch: refetchTag } = useGetTag();
+
+  const {
+    mutate: removePortoFolio,
+    isPending: isLoadingRemove,
+    isSuccess: isSuccessRemove,
+  } = useDeletePortofolio();
+
+  const deletePortofolio = useCallback(() => {
+    closeModalForm();
+    removePortoFolio(portofolioId);
+  }, [portofolioId]);
+
+  useEffect(() => {
+    if (isSuccessSave || isSuccessRemove || isSuccessUpdate) {
+      resetForm();
+    }
+  }, [isSuccessSave, isSuccessRemove, isSuccessUpdate]);
 
   return (
     <>
@@ -271,6 +297,16 @@ export default function Portofolio() {
           </form>
         </div>
       </ModalComp>
+
+      <ModalAlert
+        title="Delete Portofolio"
+        isOpen={isOpenAlertModal}
+        onOpen={openModalAlert}
+        onClose={closeModalAlert}
+        onSubmit={deletePortofolio}
+        description="Are you sure you want to delete this portofolio?"
+        size="lg"
+      ></ModalAlert>
     </>
   );
 }
