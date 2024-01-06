@@ -18,7 +18,7 @@ import { useTagStore } from "@/store/tag.store";
 import { useUserStore } from "@/store/user.store";
 import { Button, ModalFooter, useDisclosure } from "@nextui-org/react";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, set, useForm } from "react-hook-form";
 
 export default function Portofolio() {
   const { portofolio } = usePortofolioStore();
@@ -50,6 +50,14 @@ export default function Portofolio() {
 
     if (isEdit && data) {
       setEditMode(true);
+      setValue("title", data.title);
+      setValue("user_id", data.user_id);
+      setValue("category_id", data.category_id);
+      setValue("description", data.description);
+      setValue("thumbnail", data.thumbnail);
+      setValue("portofolioTag", data.portofolioTag);
+
+      console.log(data.portofolioTag);
     } else {
       setEditMode(false);
       reset();
@@ -57,12 +65,16 @@ export default function Portofolio() {
   };
   const handleOpenModalAlert = () => {};
   const onSubmit: SubmitHandler<Portofolio> = async (data) => {
-    console.log(data);
     let dataForm = {};
-
     const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("user_id", data.user_id);
+    formData.append("category_id", data.category_id);
+    formData.append("description", data.description ?? "");
+    formData.append("thumbnail", data.thumbnail[0] ?? "");
+    formData.append("portofolioTag", JSON.stringify(data.portofolioTag));
 
-    // isEditMode ? updateUser(dataForm) : storeUser(formData);
+    isEditMode ? updateUser(dataForm) : storePortofolio(formData);
   };
 
   const resetForm = useCallback(() => {
@@ -112,7 +124,7 @@ export default function Portofolio() {
   } = useForm<Portofolio>();
 
   const {
-    mutate: storeUser,
+    mutate: storePortofolio,
     isPending: isLoadingSave,
     isSuccess: isSuccessSave,
   } = useSavePortofolio();
@@ -165,12 +177,13 @@ export default function Portofolio() {
             <div className="input mb-2">
               <label htmlFor="userInput">User</label>
               <CSelect
+                value={watch("user_id")}
                 placeholder="Select User"
                 items={users ?? []}
-                valueFidld="id"
+                valueField="id"
                 labelField="name"
                 onChange={(selectedOption) =>
-                  setValue("user", selectedOption.value, {
+                  setValue("user_id", selectedOption.value, {
                     shouldValidate: true,
                     shouldDirty: true,
                   })
@@ -185,12 +198,13 @@ export default function Portofolio() {
             <div className="input mb-2">
               <label htmlFor="categoryInput">Category</label>
               <CSelect
+                value={watch("category_id")}
                 placeholder="Select Category"
                 items={categories}
-                valueFidld="id"
+                valueField="id"
                 labelField="name"
                 onChange={(selectedOption) =>
-                  setValue("category", selectedOption.value, {
+                  setValue("category_id", selectedOption.value, {
                     shouldValidate: true,
                     shouldDirty: true,
                   })
@@ -203,18 +217,19 @@ export default function Portofolio() {
               )}
             </div>
             <div className="input mb-2">
-              <label htmlFor="categoryInput">Tags</label>
+              <label htmlFor="categoryInput">Tags </label>
               <CSelect
+                multipleItemField="tag"
                 isMultiple={true}
                 placeholder="Select Tag"
                 items={tag}
-                valueFidld="id"
+                valueField="id"
+                value={watch("portofolioTag")}
                 labelField="name"
                 onChange={(selectedOption) => {
                   const finalvalue: any = [];
                   selectedOption.forEach((element: any) => {
                     finalvalue.push({
-                      portofolio: "",
                       tag_id: element.value,
                     });
                   });
@@ -224,11 +239,6 @@ export default function Portofolio() {
                   });
                 }}
               />
-              {errors.category && (
-                <span className="text-sm fw-bold text-red-500">
-                  This field is required
-                </span>
-              )}
             </div>
             <div className="input mb-2">
               <label htmlFor="ThumbnailInput">Thumbnail</label>

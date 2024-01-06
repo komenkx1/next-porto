@@ -1,16 +1,40 @@
 import Select from "react-select";
+
 type Props = {
   items: Array<any>;
-  valueFidld: string;
+  valueField: string;
   labelField: string;
+  multipleItemField?: string;
   isSearch?: boolean;
   isLoading?: boolean;
   isMultiple?: boolean;
   placeholder?: string;
+  value?: any;
   onChange: (selectedOption: any) => void;
 };
 
 export default function CSelect(props: Props) {
+  const isMulti = props.isMultiple ?? false;
+
+  // If isMulti is true, convert props.value to an array
+  const selectedValues = isMulti
+    ? props.items.filter((item) =>
+        props.value?.some((valueItem: any) => {
+          const field = valueItem[props.multipleItemField ?? "tag"] ?? "";
+          return field?.id === item.id;
+        })
+      )
+    : props.items.find((item) => item.id === props.value);
+
+  const labels = isMulti
+    ? selectedValues.map((item: any) => {
+        item.label = item[props.labelField];
+        item.value = item[props.valueField];
+      })
+    : selectedValues?.[props.labelField];
+
+  const defaultInputValue = isMulti ? "" : labels;
+
   return (
     <>
       <Select
@@ -24,22 +48,24 @@ export default function CSelect(props: Props) {
               : "",
           }),
         }}
-        className="basic-single"
+        className={isMulti ? "basic-multi" : "basic-single"}
         classNamePrefix="select"
         isLoading={props.isLoading ?? false}
         isSearchable={props.isSearch ?? true}
-        isMulti={props.isMultiple ?? false}
+        isMulti={isMulti}
         name="color"
-        getOptionValue={(option) => option.value}
         placeholder={props.placeholder ?? "Select..."}
         onChange={(selectedOptions) => {
-          console.log(selectedOptions); // Pastikan ini menghasilkan array objek
           props.onChange(selectedOptions);
         }}
         options={props.items.map((item) => ({
-          value: item[props.valueFidld],
+          value: item[props.valueField],
           label: item[props.labelField],
         }))}
+        defaultValue={selectedValues}
+        defaultInputValue={defaultInputValue}
+        // bentuk custom iption
+        // formatOptionLabel={(option) => `${option.label}`}
       />
     </>
   );

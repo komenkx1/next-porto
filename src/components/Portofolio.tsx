@@ -105,7 +105,7 @@ export default function Portofolio() {
       return (
         <PortoFolioCard
           title={portofolio.title}
-          imageUrl={portofolio.image}
+          imageUrl={portofolio.thumbnail}
           key={index}
           data-aos="fade-up"
         />

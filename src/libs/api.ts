@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://nest-porto-smoky.vercel.app", // Replace with your API base URL
+  // baseURL: "https://nest-porto-smoky.vercel.app", // Replace with your API base URL
+  baseURL: "http://localhost:3001", // Replace with your API base URL
 });
 
 // Request interceptor
