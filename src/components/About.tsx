@@ -6,15 +6,18 @@ import { useUserStore } from "@/store/user.store";
 import { useGetUserActive } from "@/queries/user.query";
 export default function About() {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const contactImageRef = useRef(null);
+  const contactImageRef = useRef<HTMLDivElement | null>(null);
   const { isLoading: isLoadingUser } = useGetUserActive();
   const { user: user } = useUserStore();
   useEffect(() => {
     const handleMouseMove = (e: any) => {
       const { clientX, clientY } = e;
-      const rect = contactImageRef.current
-        ? contactImageRef.current.getBoundingClientRect()
-        : null;
+      const rect = contactImageRef?.current?.getBoundingClientRect() ?? {
+        left: 0,
+        top: 0,
+        width: 0,
+        height: 0,
+      };
 
       // Menemukan titik tengah elemen
       const centerX = rect.width / 2;
