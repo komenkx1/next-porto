@@ -13,7 +13,7 @@ type Props = {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
-  size: string;
+  size: "lg"| "md" | "sm" | "xs";
   title?: string;
   children: React.ReactNode;
 };
