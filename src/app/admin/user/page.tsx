@@ -119,6 +119,7 @@ export default function User() {
     if (isEdit && data) {
       setEditMode(true);
       setValue("id", data.id);
+      setValue("username", data.username);
       setValue("name", data.name);
       setValue("title", data.title);
       setValue("description", data.description ?? "");
@@ -210,11 +211,12 @@ export default function User() {
     let dataForm = {};
 
     const formData = new FormData();
+    formData.append("username", data.username);
     formData.append("name", data.name);
     formData.append("title", data.title);
     formData.append("description", data.description ?? "");
     formData.append("profileImage", data.profileImage[0] ?? "");
-    formData.append("password", "123456");
+    formData.append("password", data.password ?? "");
     isEditMode ? (dataForm = { value: formData, id: data.id }) : formData;
     isEditMode ? updateUser(dataForm) : storeUser(formData);
   };
@@ -269,6 +271,32 @@ export default function User() {
       >
         <div className="form">
           <form onSubmit={handleSubmit(saveUser)}>
+          <div className="input mb-2">
+              <label htmlFor="usernameInput">Username</label>
+              <input
+                id="usernameInput"
+                type="text"
+                {...register("username", { required: true })}
+                className="c-form-input my-1"
+                placeholder="Name"
+              />
+              {errors.username && (
+                <span className="text-sm fw-bold text-red-500">
+                  This field is required
+                </span>
+              )}
+            </div>
+            <div className="input mb-2">
+              <label htmlFor="passwordInput">Password</label>
+              <input
+                id="passwordInput"
+                type="password"
+                {...register("password")}
+                className="c-form-input my-1"
+                placeholder="Password (Optional)"
+              />
+             
+            </div>
             <div className="input mb-2">
               <label htmlFor="nameInput">Name</label>
               <input

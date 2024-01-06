@@ -38,10 +38,12 @@ type Jargon = {
 type User = {
   id: number;
   name: string;
+  username: string;
   is_active: boolean;
   description: string;
   title: string;
   profileImage: string;
+  password?: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
