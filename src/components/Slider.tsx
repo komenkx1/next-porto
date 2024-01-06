@@ -10,7 +10,6 @@ type SliderProps = {
 // eslint-disable-next-line react/display-name
 const SliderCarousel = forwardRef((props: SliderProps, ref) => {
   const carouselRef = useRef<Slider>(null);
-  console.log(props.sliderData);
   const settings = {
     speed: 500,
     slidesToShow: 3,
@@ -65,7 +64,7 @@ const SliderCarousel = forwardRef((props: SliderProps, ref) => {
         {props.sliderData?.map((data: any, index: number) => {
           return (
             <div key={index}>
-              <ImageCertificate />
+              <ImageCertificate imageUrl={data.thumbnail} />
             </div>
           );
         })}

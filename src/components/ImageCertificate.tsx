@@ -18,7 +18,11 @@ export default function ImageCertificate(props: ImageCertificateProps) {
           >
             <a
               data-fancybox="gallery"
-              href="https://via.placeholder.com/570x300"
+              href={`${
+                props.imageUrl
+                  ? props.imageUrl
+                  : "https://via.placeholder.com/570x300"
+              }`}
             >
               <Image
                 width={570}

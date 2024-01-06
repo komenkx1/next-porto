@@ -22,7 +22,7 @@ export default function Categories() {
     { name: "Action", uid: "action" },
   ];
   const visibleColumns = ["id", "name", , "isFutured", "action"];
-  const [modalTitle, setModalTitle] = useState<string>("Create user");
+  const [modalTitle, setModalTitle] = useState<string>("Create Category");
   const [isEditMode, setEditMode] = useState<boolean>(false);
   const { refetch, isLoading: isCategoryLoading } = useGetCategory();
   const { categories } = useCategoryStore();
@@ -85,7 +85,7 @@ export default function Categories() {
         const actionMenu = [
           {
             title: "Edit",
-            onClick: () => handleOpenModalForm("Edit User", true, category),
+            onClick: () => handleOpenModalForm("Edit Category", true, category),
           },
           { title: "Delete", onClick: () => handleOpenModalAlert(category.id) },
         ];

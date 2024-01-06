@@ -21,11 +21,11 @@ export default function Categories() {
     { name: "Action", uid: "action" },
   ];
   const visibleColumns = ["id", "name", "action"];
-  const [modalTitle, setModalTitle] = useState<string>("Create user");
+  const [modalTitle, setModalTitle] = useState<string>("Create Tag");
   const [isEditMode, setEditMode] = useState<boolean>(false);
   const { refetch, isLoading: isTagLoading } = useGetTag();
   const { tags } = useTagStore();
-  const [tagId, setUserid] = useState<number>(0);
+  const [tagId, setTagid] = useState<number>(0);
 
   const {
     isOpen: isOpenModalForm,
@@ -67,7 +67,7 @@ export default function Categories() {
         const actionMenu = [
           {
             title: "Edit",
-            onClick: () => handleOpenModalForm("Edit User", true, tag),
+            onClick: () => handleOpenModalForm("Edit Tag", true, tag),
           },
           { title: "Delete", onClick: () => handleOpenModalAlert(tag.id) },
         ];
@@ -87,8 +87,8 @@ export default function Categories() {
   }, [isSuccessSave, isSuccessRemove, isSuccessUpdate]);
 
   //function
-  const handleOpenModalAlert = (setUserId: number) => {
-    setUserid(setUserId);
+  const handleOpenModalAlert = (setTagId: number) => {
+    setTagid(setTagId);
     openModalAlert();
   };
   const saveTag = useCallback(
