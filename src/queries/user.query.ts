@@ -36,7 +36,7 @@ function useGetUser() {
   });
 }
 function useSaveUser() {
-  const queryClient = useGetUser()
+  const queryClient = useGetUser();
 
   return useMutation({
     mutationKey: ["user-store"],
@@ -46,13 +46,13 @@ function useSaveUser() {
       });
     },
     onSuccess: () => {
-      queryClient.refetch()
+      queryClient.refetch();
     },
   });
 }
 
 function useUpdateUser() {
-  const queryClient = useGetUser()
+  const queryClient = useGetUser();
 
   return useMutation({
     mutationKey: ["user-update"],
@@ -62,13 +62,13 @@ function useUpdateUser() {
       });
     },
     onSuccess: () => {
-      queryClient.refetch()
+      queryClient.refetch();
     },
   });
 }
 
 function useDeleteUser() {
-  const queryClient = useGetUser()
+  const queryClient = useGetUser();
 
   return useMutation({
     mutationKey: ["user-delete"],
@@ -78,23 +78,42 @@ function useDeleteUser() {
       });
     },
     onSuccess: () => {
-      queryClient.refetch()
+      queryClient.refetch();
     },
   });
 }
 
 function useSaveSetActiveUser() {
-  const queryClient = useGetUser()
+  const queryClient = useGetUser();
 
   return useMutation({
     mutationKey: ["user-set-active"],
     mutationFn: (data: any) => {
-      return api.post(`/user/set-active-user/${data.id}`, data).then((response) => {
-        return response.data;
-      });
+      return api
+        .post(`/user/set-active-user/${data.id}`, data)
+        .then((response) => {
+          return response.data;
+        });
     },
     onSuccess: () => {
-      queryClient.refetch()
+      queryClient.refetch();
+    },
+  });
+}
+
+function useUpdateOrCreateJaronUser() {
+  const queryClient = useGetUser();
+  return useMutation({
+    mutationKey: ["user-jargon-update"],
+    mutationFn: (data: any) => {
+      return api
+        .post(`/user/jargon/${data.id}`, data.value)
+        .then((response) => {
+          return response.data;
+        });
+    },
+    onSuccess: () => {
+      queryClient.refetch();
     },
   });
 }
@@ -106,4 +125,5 @@ export {
   useDeleteUser,
   useUpdateUser,
   useSaveSetActiveUser,
+  useUpdateOrCreateJaronUser,
 };

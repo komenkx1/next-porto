@@ -8,9 +8,10 @@ import {
   useSaveSetActiveUser,
   useSaveUser,
   useUpdateUser,
+  useUpdateOrCreateJaronUser,
 } from "@/queries/user.query";
 import { useUserStore } from "@/store/user.store";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, set } from "react-hook-form";
 import { Button, Chip, ModalFooter, useDisclosure } from "@nextui-org/react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import ModalAlert from "@/components/ModalAlert";
@@ -20,10 +21,11 @@ export default function User() {
     { name: "NAME", uid: "name" },
     { name: "TITLE", uid: "title", sortable: true },
     { name: "STATUS", uid: "is_active", sortable: true },
+    { name: "Jargon", uid: "jargon" },
     { name: "Action", uid: "action" },
   ];
 
-  const visibleColumns = ["name", "title", "is_active", "action"];
+  const visibleColumns = ["name", "title", "is_active", "jargon", "action"];
   const statusColorMap: any = {
     active: "primary",
     disabled: "secondary",
@@ -48,8 +50,20 @@ export default function User() {
           {user.is_active ? "Active" : "Disabled"}
         </Chip>
       ),
+      jargon: (user: User) => {
+        return (
+          <div className="">
+            <p>{user.jargon?.primary_text ?? "-"}</p>
+          </div>
+        );
+      },
       action: (user: User) => {
         const actionMenu = [
+          {
+            title: "Jargon",
+            onClick: () =>
+              handleOpenModalFormJargon("Jargon", user.id, user.jargon),
+          },
           {
             title: "Edit",
             onClick: () => handleOpenModalForm("Edit User", true, user),
@@ -88,6 +102,12 @@ export default function User() {
     onOpen: openModalSetActive,
     onClose: closeModalSetActive,
   } = useDisclosure();
+
+  const {
+    isOpen: isOpenModaljargon,
+    onOpen: openModalModaljargon,
+    onClose: closeModalModaljargon,
+  } = useDisclosure();
   const [modalTitle, setModalTitle] = useState("Create user");
   const handleOpenModalForm = (
     modalTitle: string,
@@ -96,7 +116,6 @@ export default function User() {
   ) => {
     setModalTitle(modalTitle);
     openModalForm();
-
     if (isEdit && data) {
       setEditMode(true);
       setValue("id", data.id);
@@ -108,9 +127,30 @@ export default function User() {
       reset();
     }
   };
+  const handleOpenModalFormJargon = (
+    modalTitle: string,
+    userId: number,
+    data?: Jargon
+  ) => {
+    setModalTitle(modalTitle);
+    openModalModaljargon();
+    setUserid(userId);
+    if (data) {
+      setEditMode(true);
+      setvalueJargon("id", data.id);
+      setvalueJargon("primary_text", data.primary_text);
+      setvalueJargon("secondary_text", data.secondary_text);
+      setvalueJargon("user_id", userId);
+    }
+  };
+
   const handleOpenModalAlert = (setUserId: number) => {
     setUserid(setUserId);
     openModalAlert();
+  };
+  const handleCloseModalFormJargon = () => {
+    closeModalModaljargon();
+    resetJargon();
   };
   const handleOpenModalSetActive = (setUserId: number) => {
     setUserid(setUserId);
@@ -125,6 +165,15 @@ export default function User() {
     formState: { errors },
   } = useForm<User>();
 
+  const {
+    register: registerFormJargon,
+    handleSubmit: submitJargon,
+    watch: watchJargon,
+    reset: resetJargon,
+    setValue: setvalueJargon,
+    formState: { errors: errorJargon },
+  } = useForm<Jargon>();
+
   const saveUser = useCallback(
     (data: User) => {
       onSubmit(data);
@@ -137,6 +186,11 @@ export default function User() {
     isPending: isLoadingSave,
     isSuccess: isSuccessSave,
   } = useSaveUser();
+  const {
+    mutate: updateJargon,
+    isPending: isLoadingJargon,
+    isSuccess: isSuccessJargon,
+  } = useUpdateOrCreateJaronUser();
   const {
     mutate: removeUser,
     isPending: isLoadingRemove,
@@ -163,6 +217,11 @@ export default function User() {
     formData.append("password", "123456");
     isEditMode ? (dataForm = { value: formData, id: data.id }) : formData;
     isEditMode ? updateUser(dataForm) : storeUser(formData);
+  };
+
+  const onSubmitJargon: SubmitHandler<Jargon> = async (data) => {
+    data.user_id = userId;
+    updateJargon({ id: userId, value: data });
   };
 
   const resetForm = useCallback(() => {
@@ -273,6 +332,52 @@ export default function User() {
         </div>
       </ModalComp>
 
+      <ModalComp
+        title={modalTitle}
+        isOpen={isOpenModaljargon}
+        onOpen={openModalModaljargon}
+        onClose={handleCloseModalFormJargon}
+        size="lg"
+      >
+        <div className="form">
+          <form onSubmit={submitJargon(onSubmitJargon)}>
+            <div className="input mb-2">
+              <label htmlFor="titleInput">Primary Text</label>
+              <input
+                id="titleInput"
+                type="text"
+                {...registerFormJargon("primary_text")}
+                className="c-form-input my-1"
+                placeholder="Primary Text"
+              />
+            </div>
+
+            <div className="input mb-2">
+              <label htmlFor="titleInput">Secondary Text</label>
+              <input
+                id="titleInput"
+                type="text"
+                {...registerFormJargon("secondary_text")}
+                className="c-form-input my-1"
+                placeholder="Secondary Text"
+              />
+            </div>
+
+            <ModalFooter className="!px-0">
+              <Button
+                type="button"
+                color="danger"
+                onPress={handleCloseModalFormJargon}
+              >
+                Cancel
+              </Button>
+              <Button type="submit" color="primary">
+                {isLoadingSave || isLoadingUpdate ? "Saving..." : "Submit"}
+              </Button>
+            </ModalFooter>
+          </form>
+        </div>
+      </ModalComp>
       <ModalAlert
         title="Delete User"
         isOpen={isOpenAlertModal}
