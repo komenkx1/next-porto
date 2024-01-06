@@ -1,6 +1,6 @@
 import api from "@/libs/api";
 import { useTagStore } from "@/store/tag.store";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 function useGetTag() {
   const setTag = useTagStore((state) => state.setTag);
@@ -17,4 +17,52 @@ function useGetTag() {
   });
 }
 
-export { useGetTag };
+function useSaveTag() {
+  const queryClient = useGetTag();
+
+  return useMutation({
+    mutationKey: ["tag-store"],
+    mutationFn: (tag: any) => {
+      return api.post("/tag", tag).then((response) => {
+        return response.data;
+      });
+    },
+    onSuccess: () => {
+      queryClient.refetch();
+    },
+  });
+}
+
+function useUpdateTag() {
+  const queryClient = useGetTag();
+
+  return useMutation({
+    mutationKey: ["tag-update"],
+    mutationFn: (tag: any) => {
+      return api.put(`/tag/${tag.id}`, tag.value).then((response) => {
+        return response.data;
+      });
+    },
+    onSuccess: () => {
+      queryClient.refetch();
+    },
+  });
+}
+
+function useDeleteTag() {
+  const queryClient = useGetTag();
+
+  return useMutation({
+    mutationKey: ["tag-delete"],
+    mutationFn: (id: number) => {
+      return api.delete(`/tag/${id}`).then((response) => {
+        return response.data;
+      });
+    },
+    onSuccess: () => {
+      queryClient.refetch();
+    },
+  });
+}
+
+export { useGetTag, useSaveTag, useUpdateTag, useDeleteTag };
