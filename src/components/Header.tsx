@@ -138,7 +138,8 @@ export default function Header() {
                 : "top-[75px] opacity-0"
             }`}
           >
-            <div
+            <a href="mailto:komangpermana7@gmail.com"
+              target="_blank"
               data-aos="fade-down"
               data-aos-delay="200"
               className={`w-32 mb-3 justify-start items-center gap-2 group cursor-pointer transition-all lg:flex hidden ${
@@ -151,8 +152,9 @@ export default function Header() {
               <div className="text-gray-300 text-base font-medium font-['Space Grotesk'] leading-normal">
                 Email
               </div>
-            </div>
-            <div
+            </a>
+            <a href="https://www.linkedin.com/in/mang-wahyu/"
+              target="_blank"
               data-aos="fade-down"
               data-aos-delay="400"
               className={`w-32 mb-3 justify-start items-center gap-2 group cursor-pointer transition-all lg:flex hidden ${
@@ -169,8 +171,9 @@ export default function Header() {
               <div className="text-gray-300 text-base font-medium font-['Space Grotesk'] leading-normal">
                 Linkedin
               </div>
-            </div>
-            <div
+            </a>
+            <a href="https://www.instagram.com/mangwahyu19/"
+              target="_blank"
               data-aos="fade-down"
               data-aos-delay="600"
               className={`w-32 mb-3 justify-start items-center gap-2 group cursor-pointer transition-all lg:flex hidden ${
@@ -187,7 +190,7 @@ export default function Header() {
               <div className="text-gray-300 text-base font-medium font-['Space Grotesk'] leading-normal">
                 Instagram
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </div>
