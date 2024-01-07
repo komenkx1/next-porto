@@ -118,6 +118,23 @@ function useUpdateOrCreateJaronUser() {
   });
 }
 
+function useLoginUser() {
+  return useMutation({
+    mutationKey: ["user-login"],
+    mutationFn: (data: any) => {
+      return api.post(`/auth/sign-in`, data).then((response) => {
+        const token = response.data.access_token;
+        //store to local storage
+        localStorage.setItem("token", JSON.stringify(token));
+        //redirect to dashboard
+        window.location.href = "/admin";
+        return token;
+      });
+    },
+    onSuccess: () => {},
+  });
+}
+
 export {
   useGetUserActive,
   useGetUser,
@@ -126,4 +143,5 @@ export {
   useUpdateUser,
   useSaveSetActiveUser,
   useUpdateOrCreateJaronUser,
+  useLoginUser,
 };

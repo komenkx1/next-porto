@@ -8,18 +8,17 @@ const api = axios.create({
 // Request interceptor
 api.interceptors.request.use(
   (config) => {
-    // // Modify the request config here (add headers, authentication tokens)
-    // const accessToken = JSON.parse(localStorage.getItem("token") ?? "");
+    // Modify the request config here (add headers, authentication tokens)
+    const accessToken = JSON.parse(localStorage.getItem("token") || "{}");
 
-    // // If token is present add it to request's Authorization Header
-    // if (accessToken) {
-    //   if (config.headers) config.headers.token = accessToken;
-    // }
+    // If token is present add it to request's Authorization Header
+    if (accessToken) {
+      if (config.headers) config.headers.Authorization = `Bearer ${accessToken}`;
+    }
     return config;
   },
   (error) => {
-    // Handle request errors here
-
+    console.log(error);
     return Promise.reject(error);
   }
 );
@@ -29,12 +28,15 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => {
     // Modify the response data here
-
     return response;
   },
   (error) => {
     // Handle response errors here
-
+    console.log(error);
+    if(error.response.status === 401){
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+    }
     return Promise.reject(error);
   }
 );

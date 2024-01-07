@@ -15,6 +15,10 @@ export default function AdminHeader(props: Props) {
     }
     return pageName;
   }, [path]);
+  const signOut = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  };
   return (
     <>
       <div className="pb-5 w-100 flex-grow">
@@ -24,7 +28,7 @@ export default function AdminHeader(props: Props) {
               <b className="capitalize mt-2 text-[18px]">Admin System</b>
               <p className="text-[15px]"> Mang Wahyu Portofolio</p>
             </div>
-            <ArrowsPointingOutIcon className="w-5 h-5" color="blue" />
+            <ArrowsPointingOutIcon className="w-5 h-5 cursor-pointer" color="blue" onClick={signOut} />
           </div>
         </div>
         {/* //content */}

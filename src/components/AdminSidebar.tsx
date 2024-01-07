@@ -1,4 +1,5 @@
 "use client";
+import isLoggedIn from "@/middlewares/isLoggedIn";
 import {
   DocumentArrowUpIcon,
   DocumentIcon,
@@ -10,10 +11,11 @@ import {
 } from "@heroicons/react/16/solid";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { title } from "process";
 import { useMemo } from "react";
+
 export default function AdminSidebar() {
   const path = usePathname();
+
   const menu = [
     { title: "Dashboard", path: "/admin" },
     { title: "Users", path: "/admin/user" },
