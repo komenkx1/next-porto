@@ -4,11 +4,96 @@ import Button from "./Button";
 import { useEffect, useRef, useState } from "react";
 import { useUserStore } from "@/store/user.store";
 import { useGetUserActive } from "@/queries/user.query";
+import { useDisclosure } from "@nextui-org/react";
+import ModalComp from "./Modal";
 export default function About() {
+  const [modalTitle, setModalTitle] = useState<string>("");
+  const {
+    isOpen: isOpenModalDetail,
+    onOpen: openModalDetail,
+    onClose: closeModalDetail,
+  } = useDisclosure();
+
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const contactImageRef = useRef<HTMLDivElement | null>(null);
   const { isLoading: isLoadingUser } = useGetUserActive();
   const { user: user } = useUserStore();
+
+  const aboutData = [
+    {
+      title: "Education",
+      item: [
+        {
+          title: "SD N 3 Saba",
+          date: "2007 - 2013",
+        },
+        {
+          title: "SMP Widya Suara Sukawati",
+          date: "2013 - 2016",
+        },
+        {
+          title: "SMK N 1 Mas Ubud",
+          date: "2016 - 2019",
+        },
+        {
+          title: "Universitas Udayana",
+          date: "2019 - 2023",
+        },
+      ],
+    },
+
+    {
+      title: "Experience",
+      item: [
+        {
+          title: "Technology Colaboration",
+          date: "2020 - Present",
+        },
+        {
+          title: "Simpul Technology",
+          date: "2023 - Present",
+        },
+        {
+          title: "Pt. Laksita Emi Saguna",
+          date: "2022 - 2023",
+        },
+      ],
+    },
+    {
+      title: "Apprecation",
+      item: [
+        {
+          title:
+            "Favorite winner of the BKFT 55 photography competition Fakultas Teknik UNUD 2020",
+          date: " 2020",
+        },
+        {
+          title:
+            "Best graduate of the SIB Dicoding Studi Independen Bersertifikat Program",
+          date: "2022",
+        },
+      ],
+    },
+    {
+      title: "Organization",
+      item: [
+        {
+          title: "BEM PM UNIVERSITAS UDAYANA (Head Of Web Developer Division)",
+          date: "2020 - 2021",
+        },
+        {
+          title:
+            "Technology Artisan Universitas Udayana (Head Of Design & Publication Division)",
+          date: "2020 - 2021",
+        },
+        {
+          title:
+            "Himpunan Mahasiswa Teknologi Informasi Universitas Udayana (Member of Publication & Documentation Division)",
+          date: "2019 - 2020",
+        },
+      ],
+    },
+  ];
   useEffect(() => {
     const handleMouseMove = (e: any) => {
       const { clientX, clientY } = e;
@@ -117,10 +202,42 @@ export default function About() {
             {isLoadingUser ? "Loading..." : user?.description}
           </span>
           <div className="lg:my-7 md:my-5 my-3">
-            <Button title="Contact me" />
+            <Button onClick={openModalDetail} title="Learn More" />
           </div>
         </div>
       </div>
+      <ModalComp
+        title="Information Details"
+        isOpen={isOpenModalDetail}
+        onOpen={openModalDetail}
+        onClose={closeModalDetail}
+        size="xl"
+        theme="glass"
+      >
+        <div className="">
+          {aboutData.map((item, index) => {
+            return (
+              <div key={index} className="item-info text-justify">
+                <h3 className="font-bold">{item.title}</h3>
+                <hr className="my-3" />
+                <ul className="text-white text-justify">
+                  {item.item.map((itemCHild, index) => {
+                    return (
+                      <li key={index} className="my-2 text-justify flex">
+                        <div className="mr-2">- </div>{" "}
+                        <span>
+                          {itemCHild.title} - ({itemCHild.date})
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <hr className="my-3" />
+              </div>
+            );
+          })}
+        </div>
+      </ModalComp>
       <style jsx>{`
         /* ... (kode lainnya) */
 
