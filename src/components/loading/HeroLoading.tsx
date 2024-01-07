@@ -28,7 +28,6 @@ export default function HeroLoading() {
           </div>
         </div>
       </div>
-      ;
     </>
   );
 }

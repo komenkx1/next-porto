@@ -10,7 +10,7 @@ import { use, useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInstagram, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faGithub, faInstagram, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { useExpandMenu, useScrollTo } from "../hooks/menu";
 export default function Header() {
   const [isShowItemContact, setShowContact] = useState(false);
@@ -138,7 +138,28 @@ export default function Header() {
                 : "top-[75px] opacity-0"
             }`}
           >
-            <a href="mailto:komangpermana7@gmail.com"
+            <a
+              href="https://github.com/komenkx1"
+              target="_blank"
+              data-aos="fade-down"
+              data-aos-delay="600"
+              className={`w-32 mb-3 justify-start items-center gap-2 group cursor-pointer transition-all lg:flex hidden ${
+                isShowItemContact ? "" : "hidden"
+              }`}
+            >
+              <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black px-3.5 py-[15px] rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
+                <FontAwesomeIcon
+                  icon={faGithub}
+                  className="w-4 h-4"
+                  strokeWidth={2}
+                />
+              </div>
+              <div className="text-gray-300 text-base font-medium font-['Space Grotesk'] leading-normal">
+                GitHub
+              </div>
+            </a>
+            <a
+              href="mailto:komangpermana7@gmail.com"
               target="_blank"
               data-aos="fade-down"
               data-aos-delay="200"
@@ -153,7 +174,8 @@ export default function Header() {
                 Email
               </div>
             </a>
-            <a href="https://www.linkedin.com/in/mang-wahyu/"
+            <a
+              href="https://www.linkedin.com/in/mang-wahyu/"
               target="_blank"
               data-aos="fade-down"
               data-aos-delay="400"
@@ -172,7 +194,8 @@ export default function Header() {
                 Linkedin
               </div>
             </a>
-            <a href="https://www.instagram.com/mangwahyu19/"
+            <a
+              href="https://www.instagram.com/mangwahyu19/"
               target="_blank"
               data-aos="fade-down"
               data-aos-delay="600"
