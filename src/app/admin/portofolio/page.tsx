@@ -3,6 +3,7 @@ import AdminActionMenu from "@/components/AdminActionMenu";
 import CSelect from "@/components/CSelect";
 import ModalComp from "@/components/Modal";
 import ModalAlert from "@/components/ModalAlert";
+import QuillEditor from "@/components/QuillEditor";
 import TableComp from "@/components/Table";
 import { useGetCategory } from "@/queries/category.query";
 
@@ -278,12 +279,16 @@ export default function Portofolio() {
             </div>
             <div className="input mb-2">
               <label htmlFor="descInput">Description</label>
-              <textarea
+              {/* <textarea
                 id="descInput"
                 {...register("description")}
                 className="c-form-input my-1"
                 placeholder="Description"
-              ></textarea>
+              ></textarea> */}
+              <QuillEditor
+                value={watch("description")}
+                onChange={(value) => setValue("description", value)}
+              />
             </div>
 
             <ModalFooter className="!px-0">

@@ -300,7 +300,7 @@ export default function Portofolio() {
           </div>
           <div className="desc my-1">
           <span className="my-3 font-bold">Description</span>
-            <p>{selectedPortofolio?.description ?? "-"}</p>
+            <div dangerouslySetInnerHTML={{ __html: selectedPortofolio?.description ?? "-" }} />
           </div>
         </div>
       </ModalComp>
