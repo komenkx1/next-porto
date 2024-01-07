@@ -21,6 +21,9 @@ import { useGetPortofolio } from "@/queries/portofolio.query";
 import SkeletonLoading from "./loading/CardLoading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { useDisclosure } from "@nextui-org/react";
+import ModalComp from "./Modal";
+import Image from "next/image";
 
 export default function Portofolio() {
   const [isSearch, setSearch] = useState(false);
@@ -37,7 +40,8 @@ export default function Portofolio() {
   const [searchParams, setSearchParams] = useState("");
   const [categoryParams, setCategoryParams]: any = useState(null);
   const [isDataLoaded, setDataLoaded] = useState(false);
-
+  const [modalTitle, setModalTitle] = useState<string>("");
+  const [selectedPortofolio, setSelectedPortofolio] = useState<Portofolio>();
   const setCategory = (category: number) => {
     setDataLoaded(false);
     resetPortofolio();
@@ -50,6 +54,12 @@ export default function Portofolio() {
       setDataLoaded(true);
     }, 1000);
   };
+
+  const {
+    isOpen: isOpenModalDetail,
+    onOpen: openModalDetail,
+    onClose: closeModalDetail,
+  } = useDisclosure();
 
   const handleSearch = (e: any) => {
     setSearchInput(e.target.value);
@@ -66,7 +76,6 @@ export default function Portofolio() {
       }
       setSearchParams((prevSearchInput) => (prevSearchInput = e.target.value));
     }, 1000);
-
   };
   const { isLoading: isLoadingPortofolio, refetch: refetch } = useGetPortofolio(
     {
@@ -128,7 +137,7 @@ export default function Portofolio() {
     } else {
       return portofolio.map((portofolio, index) => {
         return (
-          <div className="" key={index}>
+          <div onClick={() => hanldeOpenModalDetail(portofolio)} key={index}>
             <PortoFolioCard
               title={portofolio.title}
               imageUrl={portofolio.thumbnail}
@@ -139,6 +148,13 @@ export default function Portofolio() {
       });
     }
   }, [isDataLoaded, portofolio]);
+
+  const hanldeOpenModalDetail = (portofolio: Portofolio) => {
+    setSelectedPortofolio(portofolio);
+    setModalTitle(portofolio.title);
+    openModalDetail();
+  };
+
   return (
     <>
       <div className="section ttile" id="portofolio">
@@ -232,8 +248,8 @@ export default function Portofolio() {
           {!isMaxPage ? (
             <Button title="More This Way" onClick={() => loadMorePortofolio()}>
               {isLoadingPortofolio ? (
-                  //font awesome loader spinner
-                  <FontAwesomeIcon icon={faSpinner} spin />
+                //font awesome loader spinner
+                <FontAwesomeIcon icon={faSpinner} spin />
               ) : (
                 <ArrowDownCircleIcon className="w-6 h-6 text-slate-50" />
               )}
@@ -243,6 +259,51 @@ export default function Portofolio() {
           )}
         </div>
       </div>
+      <ModalComp
+        title={modalTitle}
+        isOpen={isOpenModalDetail}
+        onOpen={openModalDetail}
+        onClose={closeModalDetail}
+        size="xl"
+        theme="glass"
+      >
+        <div className="">
+          <Image
+            width={570}
+            height={300}
+            className="w-[570px] h-[300px] rounded-xl object-cover object-center mb-3"
+            src={`${
+              selectedPortofolio?.thumbnail ??
+              "https://via.placeholder.com/570x300"
+            }`}
+            alt="Placeholder"
+          />
+        </div>
+        <hr className="my-1" />
+        <div className="">
+          <span className="my-3 font-bold">Category & Tag</span>
+          <div className="category flex">
+            <span className="">
+              {selectedPortofolio?.category?.name ?? "Uncategorized"}
+              {" | "}{" "}
+              {selectedPortofolio?.portofolioTag.map((item, index) => {
+                const isLastIndex: boolean =
+                  index === selectedPortofolio?.portofolioTag.length - 1;
+                return (
+                  <span key={index}>
+                    {item.tag.name}
+                    {isLastIndex ? "" : ", "}
+                  </span>
+                );
+              }) ?? "Uncategorized"}
+            </span>
+          </div>
+          <div className="desc my-1">
+          <span className="my-3 font-bold">Description</span>
+            <p>{selectedPortofolio?.description ?? "-"}</p>
+          </div>
+        </div>
+      </ModalComp>
     </>
   );
 }

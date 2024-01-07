@@ -25,8 +25,7 @@ export default function ImageCertificate(props: ImageCertificateProps) {
               }`}
             >
               <Image
-                width={570}
-                height={300}
+                fill
                 className="w-[570px] h-[300px] rounded-xl object-cover object-center"
                 src={`${
                   props.imageUrl
