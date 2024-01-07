@@ -18,6 +18,9 @@ import { usePortofolioStore } from "@/store/portofolio.store";
 import { useLoadMorePortofolio } from "../hooks/portofolio";
 import { useGetCategory } from "@/queries/category.query";
 import { useGetPortofolio } from "@/queries/portofolio.query";
+import SkeletonLoading from "./loading/CardLoading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 export default function Portofolio() {
   const [isSearch, setSearch] = useState(false);
@@ -33,17 +36,24 @@ export default function Portofolio() {
   const [perPageParams, setPerPage] = useState(3);
   const [searchParams, setSearchParams] = useState("");
   const [categoryParams, setCategoryParams]: any = useState(null);
+  const [isDataLoaded, setDataLoaded] = useState(false);
+
   const setCategory = (category: number) => {
+    setDataLoaded(false);
     resetPortofolio();
     if (categoryParams !== category) {
       setCategoryParams(category);
     } else {
       setCategoryParams(null);
     }
+    setTimeout(() => {
+      setDataLoaded(true);
+    }, 1000);
   };
 
   const handleSearch = (e: any) => {
     setSearchInput(e.target.value);
+    setDataLoaded(false);
     setTimeout(() => {
       if (perPageParams == 3) {
         setPage(1);
@@ -52,9 +62,11 @@ export default function Portofolio() {
 
       if (e.target.value == "") {
         setPerPage(3);
+        setDataLoaded(true);
       }
       setSearchParams((prevSearchInput) => (prevSearchInput = e.target.value));
     }, 1000);
+
   };
   const { isLoading: isLoadingPortofolio, refetch: refetch } = useGetPortofolio(
     {
@@ -75,7 +87,11 @@ export default function Portofolio() {
       console.error(error);
     }
   };
-
+  useEffect(() => {
+    if (!isLoadingPortofolio) {
+      setDataLoaded(true);
+    }
+  }, [isLoadingPortofolio]);
   useEffect(() => {
     if (!isSearch && searchInput != "") {
       resetPortofolio();
@@ -88,7 +104,7 @@ export default function Portofolio() {
 
   useEffect(() => {
     setPerPage(3);
-
+    //jangan jalankan loadinng ketika search
     refetch().then((res) => {
       if (page > 1) {
         addDataPagin(res.data?.data ?? []);
@@ -101,17 +117,28 @@ export default function Portofolio() {
   }, [categories]);
 
   const portofolioIem = useMemo(() => {
-    return portofolio.map((portofolio, index) => {
-      return (
-        <PortoFolioCard
-          title={portofolio.title}
-          imageUrl={portofolio.thumbnail}
-          key={index}
-          data-aos="fade-up"
-        />
-      );
-    });
-  }, [portofolio]);
+    if (!isDataLoaded) {
+      return [1, 2, 3].map((_, index) => {
+        return (
+          <div className="" key={index}>
+            <SkeletonLoading />
+          </div>
+        );
+      });
+    } else {
+      return portofolio.map((portofolio, index) => {
+        return (
+          <div className="" key={index}>
+            <PortoFolioCard
+              title={portofolio.title}
+              imageUrl={portofolio.thumbnail}
+              data-aos="fade-up"
+            />
+          </div>
+        );
+      });
+    }
+  }, [isDataLoaded, portofolio]);
   return (
     <>
       <div className="section ttile" id="portofolio">
@@ -204,7 +231,12 @@ export default function Portofolio() {
         >
           {!isMaxPage ? (
             <Button title="More This Way" onClick={() => loadMorePortofolio()}>
-              <ArrowDownCircleIcon className="w-6 h-6 text-slate-50" />
+              {isLoadingPortofolio ? (
+                  //font awesome loader spinner
+                  <FontAwesomeIcon icon={faSpinner} spin />
+              ) : (
+                <ArrowDownCircleIcon className="w-6 h-6 text-slate-50" />
+              )}
             </Button>
           ) : (
             ""
