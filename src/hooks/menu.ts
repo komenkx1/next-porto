@@ -45,7 +45,7 @@ function useScrollTo() {
       const targetElement = document.getElementById(link);
 
       if (targetElement) {
-        const offset = 100;
+        const offset = 90;
         const targetPosition = targetElement.offsetTop - offset;
 
         window.scrollTo({

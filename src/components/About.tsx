@@ -7,7 +7,7 @@ import { useGetUserActive } from "@/queries/user.query";
 import { useDisclosure } from "@nextui-org/react";
 import ModalComp from "./Modal";
 export default function About() {
-  const [modalTitle, setModalTitle] = useState<string>("");
+  const [isCardClicked, setCardClicked] = useState(false);
   const {
     isOpen: isOpenModalDetail,
     onOpen: openModalDetail,
@@ -18,6 +18,10 @@ export default function About() {
   const contactImageRef = useRef<HTMLDivElement | null>(null);
   const { isLoading: isLoadingUser } = useGetUserActive();
   const { user: user } = useUserStore();
+
+  const handleCardClick = () => {
+    setCardClicked(!isCardClicked); // Toggle card click state
+  };
 
   const aboutData = [
     {
@@ -129,11 +133,16 @@ export default function About() {
       <div id="about" className="section lg:grid md:grid grid-cols-2 lg:my-10">
         <div
           id="contactImage"
-          className="contatct flex justify-center items-center"
+          className={`contatct flex justify-center items-center ${
+            isCardClicked ? "enlarged" : ""
+          }`} // Add class for enlarged state
+          onClick={handleCardClick} // Handle card click
         >
           <div
             ref={contactImageRef}
-            className="hover-effect cursor-pointer shadow shadow-gray-600 group mx-2 p-14 bg-gray-200 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-900"
+            className={`hover-effect cursor-pointer shadow shadow-gray-600 group mx-2 p-14 bg-gray-200 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-900 ${
+              isCardClicked ? "enlarged-card" : ""
+            }`}
           >
             <div className="image">
               <div
@@ -252,6 +261,19 @@ export default function About() {
         }
         .contatct {
           transform-style: preserve-3d;
+          cursor: pointer;
+        }
+
+        .enlarged {
+          transform: scale(1.2) translate(0%, -50%);
+          z-index: 1000;
+          position: relative;
+        }
+
+        .enlarged-card {
+          transform: scale(1.2) translate(0%, -50%);
+          z-index: 1000;
+          position: relative;
         }
       `}</style>
     </>

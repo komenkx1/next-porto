@@ -123,10 +123,10 @@ export default function Header() {
             }}
             className="w-32 justify-end items-center gap-2 group cursor-pointer transition-all lg:flex md:flex hidden z-30"
           >
-            <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black px-3.5 py-[15px] rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
+            <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black p-4 rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
               <DevicePhoneMobileIcon className="w-4 h-4" strokeWidth={2} />
             </div>
-            <div className="text-gray-300 text-base font-medium font-['Space Grotesk'] leading-normal">
+            <div className="text-gray-300 w-full text-base font-medium font-['Space Grotesk'] leading-normal">
               Let’s Talk
             </div>
           </div>
@@ -134,7 +134,7 @@ export default function Header() {
             id="contactItem"
             className={`absolute ml-1 !transition-all  z-0  ${
               isShowItemContact
-                ? "opacity-100 top-[85px]"
+                ? "opacity-100 top-[83px]"
                 : "top-[75px] opacity-0"
             }`}
           >
@@ -147,7 +147,7 @@ export default function Header() {
                 isShowItemContact ? "" : "hidden"
               }`}
             >
-              <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black px-3.5 py-[15px] rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
+              <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black p-4 rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
                 <FontAwesomeIcon
                   icon={faGithub}
                   className="w-4 h-4"
@@ -167,7 +167,7 @@ export default function Header() {
                 isShowItemContact ? "" : "hidden"
               }`}
             >
-              <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black px-3.5 py-[15px] rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
+              <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black p-4 rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
                 <EnvelopeIcon className="w-4 h-4" strokeWidth={2} />
               </div>
               <div className="text-gray-300 text-base font-medium font-['Space Grotesk'] leading-normal">
@@ -183,7 +183,7 @@ export default function Header() {
                 isShowItemContact ? "" : "hidden"
               }`}
             >
-              <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black px-3.5 py-[15px] rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
+              <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black p-4 rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
                 <FontAwesomeIcon
                   icon={faLinkedin}
                   className="w-4 h-4"
@@ -203,7 +203,7 @@ export default function Header() {
                 isShowItemContact ? "" : "hidden"
               }`}
             >
-              <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black px-3.5 py-[15px] rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
+              <div className="transition-all group-hover:bg-[#6C4BEF] group-hover:border-black p-4 rounded-[74px] border border-gray-300 flex-col justify-center items-center gap-1 inline-flex">
                 <FontAwesomeIcon
                   icon={faInstagram}
                   className="w-4 h-4"
