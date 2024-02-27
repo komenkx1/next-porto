@@ -36,7 +36,7 @@ export default function ModalComp({ theme = "light", ...props }: Props) {
           theme === "glass" || theme === "dark"
             ? "backdrop-blur-[20px]"
             : ""
-        } overflow-y-auto`}
+        } ${props.size == 'xl' ? 'max-w-[900px]' : ''} overflow-y-auto max-h-[700px]`}
       >
         {(onClose) => (
           <>
