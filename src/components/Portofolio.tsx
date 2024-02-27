@@ -267,7 +267,7 @@ export default function Portofolio() {
         size="xl"
         theme="glass"
       >
-        <div className="">
+        <div className="w-full flex flex-col items-center">
           <Image
             width={570}
             height={300}
