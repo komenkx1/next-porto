@@ -130,7 +130,7 @@ export default function About() {
   }, []);
   return (
     <>
-      <div id="about" className="section lg:grid md:grid grid-cols-2 lg:my-10">
+      <div id="about" className="section lg:grid md:grid grid-cols-2 lg:my-32">
         <div
           id="contactImage"
           className={`contatct flex justify-center items-center ${

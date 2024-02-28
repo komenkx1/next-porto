@@ -45,11 +45,21 @@ function useScrollTo() {
       const targetElement = document.getElementById(link);
 
       if (targetElement) {
-        const offset = 90;
+        const offset = 100;
         const targetPosition = targetElement.offsetTop - offset;
+        const scrollPosition =
+          window.scrollY ||
+          window.pageYOffset ||
+          document.documentElement.scrollTop;
+
+        const isScrolledToBottom =
+          scrollPosition + window.innerHeight >=
+          document.documentElement.scrollHeight;
 
         window.scrollTo({
-          top: targetPosition,
+          top: isScrolledToBottom
+            ? document.documentElement.scrollHeight
+            : targetPosition,
           behavior: "smooth",
         });
       }
