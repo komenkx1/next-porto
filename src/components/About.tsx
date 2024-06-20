@@ -140,11 +140,11 @@ export default function About() {
         >
           <div
             ref={contactImageRef}
-            className={`hover-effect cursor-pointer shadow shadow-gray-600 group mx-2 p-14 bg-gray-200 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-900 ${
+            className={`flex justify-center flex-col gap-10 w-[400px] hover-effect cursor-pointer shadow shadow-gray-600 group mx-2 p-14 bg-gray-200 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-900 ${
               isCardClicked ? "enlarged-card" : ""
             }`}
           >
-            <div className="image">
+            <div className="image flex justify-center">
               <div
                 style={{
                   backgroundImage: `url(${user?.profileImage})`,
@@ -159,13 +159,7 @@ export default function About() {
             <div className="contact-profile text-center w-full">
               <p
                 className="
-                capitalize 
-            text-gray-200
-            text-[32px]
-            font-bold
-            font-['Space
-            Grotesk']
-            leading-10"
+                      capitalize mb-4 text-gray-200 text-[32px] font-bold font-['Space Grotesk'] leading-10"
               >
                 {isLoadingUser ? "Loading..." : user?.name}
               </p>
