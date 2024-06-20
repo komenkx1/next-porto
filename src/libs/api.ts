@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  // baseURL: "https://api.mangwahyu.tech", // Replace with your API base URL
-  baseURL: "http://localhost:3001", // Replace with your API base URL
+  baseURL: process.env.NEXT_PUBLIC_API_URL
 });
 
 // Request interceptor
