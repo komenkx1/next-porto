@@ -4,7 +4,6 @@ export default function isLoggedIn(req: any, res: any, next: any) {
   // Pemeriksaan token di local storage atau sesuai kebutuhan Anda
   const token = localStorage.getItem("token");
   if (!token) {
-    // window.location.href = "/login";
     return res.push("/login");
   }
 
